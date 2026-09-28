@@ -1,0 +1,8 @@
+# Slowpost mailbox artwork
+
+File: `vintage-mailbox.png`
+Generated with the built-in ImageGen tool for this website. Keep this folder alongside `index.html`.
+
+## Generation prompt
+
+Use case: stylized-concept. Asset type: high quality illustration for an immersive vintage digital letter website. Create ONE portrait 1024x1536 standalone artwork of a charming authentic mid-century rural American curved-top mailbox in faded vermilion red, mounted on a short weathered dark teal wooden post. Three-quarter perspective, front faces toward lower left, arched door CLOSED, tiny brass pull handle, side red flag raised. A small cream enamel plaque on side with a simple embossed envelope symbol ONLY, no letters or text. The entire mailbox and post visible with generous empty margin, object centered. Artistic medium: extraordinary refined industrial designer colored-pencil and graphite concept sketch mixed with tactile miniature 3D model realism; precise hand-drawn contour linework, beautiful dense crosshatching, worn brushed enamel, small scratches, hand-painted red pigment, wood grain. Sophisticated 1970s magazine illustration. Warm directional afternoon light, restrained soft shadow below object. Uniform light warm ivory paper background (#f3ead8), no landscape, no frame, no UI, no extra objects, no words or typography, no watermark. Mailbox prominent occupying 78% of canvas height, post ends visibly above lower edge. Beautiful collectible object, quiet nostalgic feeling, rich rusty orange-red and forest green, desaturated warm paper. Not cartoon, not vector, not flat clipart. Output final image and local saved path.
