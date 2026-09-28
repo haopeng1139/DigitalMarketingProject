@@ -17,6 +17,10 @@ body{overflow-x:clip}body:before{opacity:.18}.shell{max-width:1600px;padding:0 5
 @media(max-width:670px){.shell{padding:0 6%}.nav{padding:20px 0}.brand{font-size:30px}.arrival{min-height:860px;height:auto;max-height:none;grid-template-columns:1fr;grid-template-rows:auto auto 355px auto}.arrival-rule{padding:16px 0}.arrival-rule .mono{font-size:8px;letter-spacing:1px}.arrival-rule>span:last-child{display:none}.arrival-copy{padding:23px 0 0;align-self:start}.arrival-kicker{font-size:9px;letter-spacing:1.3px;margin-bottom:18px;gap:8px}.arrival-kicker>span{font-size:19px}.arrival h1{font-size:clamp(62px,15vw,91px);letter-spacing:-3.6px;line-height:.96;margin-left:-2px}.arrival h1 em{letter-spacing:-4px;white-space:normal}.arrival-description{font-size:14px;line-height:1.7;margin:20px 0 16px}.write-link{font-size:13px;gap:28px;padding-bottom:8px}.arrival-edition{display:none}.mailbox-stage{grid-column:1;min-height:355px}.mailbox-link{inset:-30px 0 -20px 10%;}.mailbox-art{object-position:50% 50%;transform:rotate(-6deg)}.mailbox-note{left:0;right:auto;top:25%;font-size:19px;transform:rotate(-9deg)}.mailbox-invitation{right:0;bottom:24%;width:91px;height:91px}.mailbox-invitation strong{font-size:19px}.mailbox-invitation .mono{font-size:8px}.invitation-arrow{font-size:20px}.object-caption{bottom:5px;left:17%;font-size:8px}.arrival-bottom{padding:19px 0;gap:10px}.arrival-bottom>.mono:first-child{display:none}.arrival-bottom>.mono:last-child{font-size:8px}.scroll-invitation{font-size:9px;letter-spacing:1px;gap:10px}.postal-ribbon{margin-inline:-6.82%;height:10px}.writing-room{padding-top:48px;scroll-margin-top:20px}.desk-intro{display:block;margin-bottom:27px}.desk-intro h2{font-size:41px;letter-spacing:-1.8px}.desk-intro .mono{font-size:9px;margin-bottom:15px}.desk-intro>p{font-size:13px;margin:19px 0 0}.editor{padding:23px 18px}.preview-panel{padding:25px 20px}.section-top h2{font-size:11px;letter-spacing:.5px}.section-top .step{margin-right:7px}.status{font-size:10px}.fields,.delivery{gap:12px}.fields label,.delivery label{font-size:12px}.legend{font-size:13px}.swatch,.stamp-option{min-width:30px;width:30px;min-height:35px}.swatches,.stamp-options{gap:7px}.letter{padding:27px 23px}.letter-head .mono{font-size:9px}.letter-body{font-size:16px}.stamp{min-width:53px;height:65px}.bottom-ticker{margin-top:30px}.how{padding:40px 0}.footer{padding:22px 0}.mailbox-link:focus-visible{outline-offset:0!important}}
 @media(prefers-reduced-motion:reduce){.mailbox-art,.mailbox-invitation,.workspace,.write-link>span,.scroll-invitation span:last-child{transition:none!important;transform:none!important}.reveal-enabled .workspace{opacity:1!important}html{scroll-behavior:auto}}
 
+
+/* The original illustration is split into a fixed body and a hinged door. */
+.mailbox-model{overflow:visible;perspective:1000px}.mailbox-door{transform-box:view-box;transform-origin:292px 754px;will-change:transform}.mailbox-link.is-opening .mailbox-art{transform:rotate(0deg)!important;transition:transform .25s}.mailbox-link.is-opening .mailbox-invitation{opacity:0;transform:scale(.85)}.mailbox-invitation{transition:opacity .25s,transform .4s,background .4s}.mail-flight{position:fixed;top:0;left:0;width:260px;height:166px;z-index:100;pointer-events:none;visibility:hidden;will-change:transform,opacity;background:#faf0d8;border:1px solid #b3a583;box-shadow:0 18px 42px #253e3633,2px 3px 0 #c9bda3;border-radius:2px;overflow:hidden}.mail-flight:before{content:"";position:absolute;inset:7px;border:1px solid #9f9b7855}.flight-postage{position:absolute;right:17px;top:16px;background:#b94e33;color:#fff1d7;padding:7px;border:2px dashed #edc29a;text-align:center;font:8px 'Courier New',monospace;letter-spacing:1px}.flight-postage span{font:29px Georgia,serif}.flight-address{position:absolute;left:23px;bottom:24px;right:18px}.flight-address small{font:8px 'Courier New',monospace;letter-spacing:1.5px}.flight-address strong{display:block;font:italic 24px Georgia,serif;margin:8px 0 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.flight-address>span{font:8px 'Courier New',monospace;color:#6b725f}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}html.mailbox-journey{scroll-behavior:auto!important}.mailbox-arrived .letter{animation:letter-arrival .6s ease-out}@keyframes letter-arrival{from{transform:translateY(-15px) rotate(0deg);box-shadow:0 28px 30px #354a3733}to{transform:translateY(0) rotate(-2deg)}}@media(prefers-reduced-motion:reduce){.mail-flight{display:none}.mailbox-arrived .letter{animation:none}.mailbox-door{will-change:auto}}
+
 </style>
 </head>
 <body>
@@ -35,8 +39,17 @@ body{overflow-x:clip}body:before{opacity:.18}.shell{max-width:1600px;padding:0 5
   </div>
   <div class="mailbox-stage">
     <span class="mailbox-note">Something good<br>is on its way.</span>
-    <a class="mailbox-link" href="#writing-room" data-enter aria-label="Open the vintage mailbox and start writing a letter">
-      <img class="mailbox-art" src="assets/vintage-mailbox.png" alt="A hand-sketched vintage red mailbox on a weathered green wooden post" width="1024" height="1536" fetchpriority="high">
+    <a class="mailbox-link" href="#writing-room" id="interactiveMailbox" aria-label="Open the vintage mailbox and start writing a letter">
+      <svg class="mailbox-art mailbox-model" viewBox="0 0 1024 1536" role="img" aria-label="An interactive vintage red mailbox with a hinged door">
+        <defs>
+          <clipPath id="mailboxDoorClip"><path d="M131 728 L133 423 C130 310 189 239 254 237 C330 230 403 300 424 407 L452 772 L143 744 Z"/></clipPath>
+          <linearGradient id="mailboxDepth" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#171f1b"/><stop offset="1" stop-color="#513b2c"/></linearGradient>
+        </defs>
+        <image href="assets/vintage-mailbox.png" width="1024" height="1536"/>
+        <path class="mailbox-cavity" d="M143 724 L145 423 C143 319 197 252 256 250 C325 244 391 309 412 410 L438 757 Z" fill="url(#mailboxDepth)" stroke="#633c27" stroke-width="8"/>
+        <path d="M161 716 L429 747 L370 659 L204 642 Z" fill="#91745a" opacity=".4"/>
+        <g id="mailboxDoor" class="mailbox-door"><image href="assets/vintage-mailbox.png" width="1024" height="1536" clip-path="url(#mailboxDoorClip)"/></g>
+      </svg>
       <span class="mailbox-invitation"><span class="mono">Open the</span><strong>mailbox</strong><span class="invitation-arrow" aria-hidden="true">↗</span></span>
     </a>
     <span class="object-caption mono">Fig. 01 &nbsp; / &nbsp; A home for your words</span>
@@ -71,6 +84,8 @@ This is where your words go.</div><div class="preview-media" id="previewMedia"><
 <dialog id="sealDialog" aria-labelledby="sealTitle"><button class="close" aria-label="Close preview" type="button" data-close>×</button><span class="mono">Signed. Sealed. Yours.</span><h2 id="sealTitle">A little love, ready to go.</h2><div class="summary" id="sealSummary"></div><p>Your letter is packaged as a keepsake HTML file, with your paper, stamp, and any attached memory. Download it and share it with your person.</p><p>The open-on date is a gentle invitation. This version doesn't automatically send email or lock the letter until that date.</p><button class="primary" type="button" id="downloadButton">Download your letter ↓</button><button class="secondary" type="button" data-close>Back to the writing desk</button></dialog>
 <dialog id="draftDialog" aria-labelledby="draftTitle"><button class="close" aria-label="Close drafts" type="button" data-close>×</button><span class="mono">Your little corner</span><h2 id="draftTitle">Words in progress.</h2><div id="draftItem"></div><p>One draft is kept in this browser. Attached photos and audio stay only while this page is open.</p><button class="primary" type="button" data-close>Keep writing ↗</button><button class="secondary" type="button" id="clearDraft">Clear this draft</button></dialog>
 <div id="toast" role="status"></div>
+<div id="mailFlight" class="mail-flight" aria-hidden="true"><div class="flight-postage">SLOWPOST<br><span>♡</span></div><div class="flight-address"><small>A LITTLE SOMETHING FOR</small><strong id="flightRecipient">someone special</strong><span>Sent with feeling. Not in a hurry.</span></div></div>
+<span id="mailboxStatus" class="sr-only" role="status"></span>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
@@ -121,11 +136,82 @@ document.querySelectorAll('[data-enter]').forEach(link=>link.addEventListener('c
   document.querySelector('#deskTitle').focus({preventScroll:true});
 }));
 const mailboxLink=document.querySelector('.mailbox-link');
+const mailboxDoor=document.querySelector('#mailboxDoor');
+const flyingLetter=document.querySelector('#mailFlight');
+let mailboxJourney=null;
+function enterWritingRoom(){
+  workspace.classList.add('is-visible');
+  document.querySelector('#writing-room').scrollIntoView({behavior:'instant',block:'start'});
+  document.querySelector('#deskTitle').focus({preventScroll:true});
+}
+function openMailbox(event){
+  event.preventDefault();
+  if(mailboxJourney)return;
+  if(reducedMotion.matches || !window.requestAnimationFrame){enterWritingRoom();return;}
+  const art=mailboxLink.querySelector('.mailbox-art').getBoundingClientRect();
+  const scale=Math.min(art.width/1024,art.height/1536);
+  const origin={x:art.left+(art.width-1024*scale)/2+290*scale,y:art.top+(art.height-1536*scale)/2+510*scale};
+  const initialScroll=window.scrollY;
+  const room=document.querySelector('#writing-room');
+  const finalScroll=Math.max(0,Math.min(room.getBoundingClientRect().top+initialScroll-24,document.documentElement.scrollHeight-window.innerHeight));
+  const landing=document.querySelector('#letterPreview').getBoundingClientRect();
+  const destination={x:Math.max(140,Math.min(window.innerWidth-140,landing.left+landing.width/2)),y:Math.min(window.innerHeight*.76,landing.top+initialScroll-finalScroll+80)};
+  document.querySelector('#flightRecipient').textContent=document.querySelector('#recipient').value.trim()||'someone special';
+  document.querySelector('#mailboxStatus').textContent='Opening your mailbox. A letter is on its way to the writing desk.';
+  mailboxLink.setAttribute('aria-busy','true');
+  mailboxLink.classList.add('is-opening');
+  document.documentElement.classList.add('mailbox-journey');
+  const journey={frame:0,start:null};mailboxJourney=journey;
+  const clamp=v=>Math.max(0,Math.min(1,v));
+  const smooth=v=>v*v*(3-2*v);
+  function finish(completed){
+    if(mailboxJourney!==journey)return;
+    cancelAnimationFrame(journey.frame);
+    flyingLetter.style.visibility='hidden';
+    mailboxDoor.style.transform='';
+    mailboxLink.classList.remove('is-opening');
+    mailboxLink.removeAttribute('aria-busy');
+    document.documentElement.classList.remove('mailbox-journey');
+    for(const type of ['wheel','touchstart','pointerdown','keydown','resize'])window.removeEventListener(type,interrupt);
+    mailboxJourney=null;
+    if(completed){workspace.classList.add('is-visible');room.classList.remove('mailbox-arrived');void room.offsetWidth;room.classList.add('mailbox-arrived');document.querySelector('#deskTitle').focus({preventScroll:true});document.querySelector('#mailboxStatus').textContent='Your writing desk is ready.';}
+    else document.querySelector('#mailboxStatus').textContent='Animation stopped. Scroll to the writing desk whenever you are ready.';
+  }
+  function interrupt(e){if(e.type==='keydown'&&!['Escape','Tab','PageDown','PageUp','Home','End','ArrowDown','ArrowUp',' '].includes(e.key))return;if(e.type==='pointerdown'&&mailboxLink.contains(e.target))return;finish(false)}
+  for(const type of ['wheel','touchstart','pointerdown','keydown','resize'])window.addEventListener(type,interrupt,{passive:true});
+  function tick(now){
+    if(mailboxJourney!==journey)return;
+    if(reducedMotion.matches){finish(false);enterWritingRoom();return;}
+    if(journey.start===null)journey.start=now;
+    const elapsed=now-journey.start;
+    const door=smooth(clamp(elapsed/650));
+    // A hinge affine transform keeps the sketched door aligned to its bottom edge.
+    mailboxDoor.style.transform=`translateX(${door*38}px) skewX(${-door*13}deg) scaleY(${1-door*1.48})`;
+    const flight=clamp((elapsed-480)/1600);
+    if(elapsed>=480){
+      flyingLetter.style.visibility='visible';
+      const p=smooth(flight),arc=Math.sin(Math.PI*flight);
+      const x=origin.x+(destination.x-origin.x)*p-arc*70;
+      const y=origin.y+(destination.y-origin.y)*p+arc*100;
+      const size=.28+.72*Math.sin(Math.PI*Math.min(1,flight*1.15)/2);
+      flyingLetter.style.transform=`translate(${x-130}px,${y-83}px) rotate(${-14+Math.sin(flight*Math.PI*2)*15+flight*12}deg) scale(${size})`;
+      flyingLetter.style.opacity=String(Math.min(1,flight*9)*Math.min(1,(1-flight)*7));
+    }
+    const travel=smooth(clamp((elapsed-850)/1250));
+    if(elapsed>=850)window.scrollTo(0,initialScroll+(finalScroll-initialScroll)*travel);
+    if(elapsed>=2100){finish(true);return;}
+    journey.frame=requestAnimationFrame(tick);
+  }
+  journey.frame=requestAnimationFrame(tick);
+}
+mailboxLink.addEventListener('click',openMailbox);
+mailboxLink.addEventListener('keydown',event=>{if(event.key===' '){event.preventDefault();openMailbox(event)}});
 if(window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reducedMotion.matches){
   let motionFrame;
   mailboxLink.addEventListener('pointermove',event=>{
+    if(mailboxJourney)return;
     cancelAnimationFrame(motionFrame);
-    motionFrame=requestAnimationFrame(()=>{const box=mailboxLink.getBoundingClientRect();mailboxLink.style.setProperty('--mx',((event.clientX-box.left)/box.width-.5)*12+'px');mailboxLink.style.setProperty('--my',((event.clientY-box.top)/box.height-.5)*8+'px')});
+    motionFrame=requestAnimationFrame(()=>{if(mailboxJourney)return;const box=mailboxLink.getBoundingClientRect();mailboxLink.style.setProperty('--mx',((event.clientX-box.left)/box.width-.5)*12+'px');mailboxLink.style.setProperty('--my',((event.clientY-box.top)/box.height-.5)*8+'px')});
   });
   mailboxLink.addEventListener('pointerleave',()=>{cancelAnimationFrame(motionFrame);mailboxLink.style.setProperty('--mx','0px');mailboxLink.style.setProperty('--my','0px')});
 }
