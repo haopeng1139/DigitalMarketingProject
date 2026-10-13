@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slowpost</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Space+Mono:wght@400;700&amp;family=Gaegu:wght@400;700&amp;family=Homemade+Apple&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4E6C8}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none !important}}
+.top{position:sticky;top:0;z-index:20}
+a,button{transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease}
+a{color:#4A3426}a:hover{color:#B5461A}
+.top{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:2px solid #4A3426;background:#F4E6C8}
+.nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:'Space Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.nav a{text-decoration:none;padding:10px 0;border-bottom:3px solid transparent}
+.nav a.on{border-bottom-color:#B5461A;font-weight:700}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:#4A3426;color:#F4E6C8;font:800 16px Nunito,sans-serif;text-decoration:none;border-radius:999px}
+.btn:hover{color:#F2CF6B}
+.lab{margin:0;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:2px solid #4A3426;border-radius:999px;font:700 14px Nunito,sans-serif;background:#FFF8EA;color:#4A3426;cursor:pointer}
+.chip.on{background:#23707A;border-color:#23707A;color:#FFF8EA}
+.share{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:2px solid #4A3426;border-radius:999px;font:700 14px Nunito,sans-serif;color:#4A3426;background:#FFF8EA;cursor:pointer;text-decoration:none}
+</style>
+<style>
+html,body{overflow-x:clip}
+body{background:#F4E6C8;color:#4A3426}
+.top{top:env(safe-area-inset-top,0px) !important}
+@media (max-width: 760px){.top{position:static !important}}
+:focus-visible{outline:3px solid #2A8C8C;outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sp-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#4A3426;color:#FFF8EA;font:700 15px Nunito,sans-serif;padding:12px 20px;border-radius:999px;box-shadow:3px 3px 0 #E8862E;z-index:50;max-width:calc(100vw - 48px)}
+</style>
+</head>
+<body style="margin:0">
+<div style="font-family: Nunito, sans-serif; color: #4A3426; background: #F4E6C8; min-height: 100%">
+  <header class="top">
+    <a href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 56px; width: auto; display: block"></a>
+    <nav aria-label="Main" class="nav">
+      <a href="letter.html">Letter</a>
+      <a href="postcards.html">Postcards &amp; Cards</a>
+      <a href="penpals.html" class="on" aria-current="page">Pen Pals</a>
+      <a href="community.html">Community Notes</a>
+      <a href="mailbox.html">Mailbox</a>
+    </nav>
+    <a href="mailbox.html" class="btn">Your mailbox</a>
+  </header>
+
+  <section style="background: linear-gradient(#F4E6C8, #F8E5B4 120px, #F8E5B4 calc(100% - 120px), #F4E6C8)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 52px 32px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+      <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <span class="lab" style="color: #B5461A">The daily letter · Oct 10</span>
+        <h1 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(44px, 5.4vw, 72px); line-height: 0.95">One real letter,<br>every morning.</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 480px">Each day we deliver one letter written by a real person and dropped in the pile. Read it, keep it, and leave one of your own for a stranger tomorrow.</p>
+        <a href="#" style="font-weight: 800; font-size: 16px">Add a letter to the pile →</a>
+      </div>
+      <article style="flex: 1 1 420px; min-width: 0; background: #FFF8EA; border-radius: 10px; box-shadow: 4px 4px 0 rgba(74,52,38,0.85); border: 3px solid #4A3426; padding: 28px; display: flex; flex-direction: column; gap: 14px; transform: rotate(1.5deg)">
+        <div style="display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 13px"><span>No. 0284 · from Halifax</span><span>age 67</span></div>
+        <p style="margin: 0; font-family: 'Homemade Apple', cursive; font-size: 15px; line-height: 2.1">To you, whoever you are. I've written letters to the same friend for 48 years. We have met only twice. She knows me better than anyone. Write to somebody. It works.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 10px; border-top: 1px dashed rgba(74,52,38,0.4)">
+          <button type="button" class="share" style="background: #4A3426; color: #FFF8EA">Keep it</button>
+          <a href="#" class="share">Instagram</a>
+          <a href="#" class="share">X</a>
+          <a href="#" class="share">WhatsApp</a>
+          <button type="button" class="share">Copy link</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div style="max-width: 1280px; margin: 0 auto; padding: 56px 32px 64px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+    <section style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <span class="lab" style="color: #B5461A">Pen pal matching</span>
+        <h2 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(36px, 4.2vw, 54px); line-height: 0.95">Find someone to write to.</h2>
+      </div>
+      <fieldset style="margin: 0; padding: 0; border: 0">
+        <legend class="lab" style="margin-bottom: 10px">Things you'd write about</legend>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button type="button" class="chip on">Film photography</button>
+          <button type="button" class="chip on">Cooking</button>
+          <button type="button" class="chip">Books</button>
+          <button type="button" class="chip on">City walks</button>
+          <button type="button" class="chip">Music</button>
+          <button type="button" class="chip">Gardening</button>
+          <button type="button" class="chip">Learning a language</button>
+          <button type="button" class="chip">+ Add your own</button>
+        </div>
+      </fieldset>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="pp-lang" class="lab">Write in</label>
+          <select id="pp-lang" style="font: 16px Nunito, sans-serif; min-height: 52px; padding: 0 12px; border: 2px solid #4A3426; border-radius: 12px; background: #FFF8EA; color: #4A3426"><option>English</option><option>Spanish</option><option>Japanese</option></select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="pp-far" class="lab">How far away</label>
+          <select id="pp-far" style="font: 16px Nunito, sans-serif; min-height: 52px; padding: 0 12px; border: 2px solid #4A3426; border-radius: 12px; background: #FFF8EA; color: #4A3426"><option>Another country</option><option>Same country</option><option>Anywhere</option></select>
+        </div>
+      </div>
+      <button type="button" style="align-self: flex-start; min-height: 54px; padding: 0 28px; background: #B5461A; color: #FFF8EA; border: 0; border-radius: 999px; font: 800 17px Nunito, sans-serif; cursor: pointer">Match me with a pen pal</button>
+      <p style="margin: 0; font-size: 14px; line-height: 1.5">Pen pals only see your Slowpost address and first name. Either of you can end the exchange at any time.</p>
+    </section>
+
+    <section style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <h2 class="lab">We found you someone</h2>
+      <article style="background: #DDEEEA; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; gap: 16px; align-items: center">
+          <span style="width: 68px; height: 68px; border-radius: 50%; background: #F2A54A; display: flex; align-items: center; justify-content: center; font-family: Righteous, sans-serif; font-size: 28px">S</span>
+          <div style="display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 22px">Sora</strong><span style="font-family: 'Space Mono', monospace; font-size: 14px">slowpost/sora.letters · Osaka</span></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="chip on" style="cursor: default">Film photography</span><span class="chip on" style="cursor: default">City walks</span></div>
+        <p style="margin: 0; font-size: 16px; line-height: 1.55">“I shoot on a 1982 Pentax and I'm trying to visit every public bath in my city. Looking for someone to trade photos and slow stories with.”</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <a href="letter.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; background: #4A3426; color: #FFF8EA; font-weight: 800; text-decoration: none; border-radius: 999px">Write the first letter</a>
+          <button type="button" style="min-height: 48px; padding: 0 20px; background: transparent; border: 2px solid #4A3426; border-radius: 999px; font: 700 15px Nunito, sans-serif; color: #4A3426; cursor: pointer">Show me someone else</button>
+        </div>
+      </article>
+      <div style="display: flex; gap: 14px; align-items: center; padding: 16px; border: 2px dashed rgba(74,52,38,0.5); border-radius: 14px">
+        <span style="font-family: 'Gaegu', cursive; font-size: 40px; color: #B5461A; line-height: 1">3</span>
+        <span style="font-size: 15px; line-height: 1.4">active pen pals. Average reply time: 5 days. That's the point.</span>
+      </div>
+    </section>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slowpost</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Space+Mono:wght@400;700&amp;family=Gaegu:wght@400;700&amp;family=Homemade+Apple&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4E6C8;color:#4A3426}
+html,body{overflow-x:clip}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+[hidden]{display:none !important}
+a{color:#4A3426}a:hover{color:#B5461A}
+:focus-visible{outline:3px solid #2A8C8C;outline-offset:2px}
+.top{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:2px solid #4A3426;background:#F4E6C8}
+.nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:'Space Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.nav a{text-decoration:none;padding:10px 0}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:#4A3426;color:#F4E6C8;font:800 16px Nunito,sans-serif;text-decoration:none;border-radius:999px}
+.btn:hover{color:#F0B93A}
+.primary{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 28px;background:#B5461A;color:#FFF8EA;border:2px solid #4A3426;border-radius:999px;font:900 17px Nunito,sans-serif;cursor:pointer;box-shadow:3px 3px 0 rgba(74,52,38,0.85);text-decoration:none;transition:transform .2s ease, box-shadow .2s ease}
+.primary:hover{color:#FFF8EA;transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(74,52,38,0.85)}
+.ghost{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;background:#FFF8EA;border:2px solid #4A3426;border-radius:999px;font:800 15px Nunito,sans-serif;color:#4A3426;text-decoration:none}
+.lab{margin:0;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.stk{filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 3px 4px rgba(74,52,38,.25))}
+.env{position:relative;width:100%;max-width:440px;aspect-ratio:1.6;border-radius:8px;overflow:hidden;box-shadow:5px 5px 0 rgba(74,52,38,0.85);border:2px solid #4A3426}
+.count{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.count div{min-width:76px;padding:10px 8px;background:#FFF8EA;border:2px solid #4A3426;border-radius:12px;text-align:center}
+.count b{display:block;font:400 34px Righteous,sans-serif;font-variant-numeric:tabular-nums}
+.count span{font:12px Silkscreen,monospace;text-transform:uppercase}
+@keyframes rise{from{opacity:.001;transform:translateY(24px)}to{opacity:1;transform:none}}
+.reveal{animation:rise .6s ease both}
+</style>
+</head>
+<body style="margin:0">
+<div style="font-family: Nunito, sans-serif; color: #4A3426; background: #F4E6C8; min-height: 100vh">
+  <header class="top">
+    <a href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 56px; width: auto; display: block"></a>
+    <nav aria-label="Main" class="nav">
+      <a href="letter.html">Letter</a>
+      <a href="postcards.html">Postcards &amp; Cards</a>
+      <a href="mailbox.html">Mailbox</a>
+    </nav>
+    <a href="mailbox.html" class="btn">Your mailbox</a>
+  </header>
+
+  <main style="max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; box-sizing: border-box">
+    <p id="loading" style="text-align: center; font: 15px 'Space Mono', monospace">Checking the mailbox…</p>
+
+    <section id="missing" hidden style="text-align: center; display: flex; flex-direction: column; gap: 16px; align-items: center">
+      <h1 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: 44px">We couldn't find this letter.</h1>
+      <p style="margin: 0; font-size: 18px; max-width: 520px; line-height: 1.6">The link may be incomplete. Ask the sender to copy it again from their mailbox and send it to you.</p>
+      <a href="index.html" class="primary">Go to Slowpost</a>
+    </section>
+
+    <section id="sealed" hidden style="display: flex; flex-direction: column; gap: 26px; align-items: center; text-align: center">
+      <span style="font-family: 'Gaegu', cursive; font-size: 30px; font-weight: 700; color: #B5461A" id="sealed-kicker">a letter is on its way</span>
+      <h1 id="sealed-title" style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(36px, 5vw, 60px); line-height: 1"></h1>
+      <div class="env" id="sealed-env"></div>
+      <p id="sealed-when" style="margin: 0; font-size: 19px; line-height: 1.5"></p>
+      <div class="count" aria-live="off" id="count"></div>
+      <p style="margin: 0; font-size: 15px; max-width: 460px; line-height: 1.6">It's still in the mail. Keep this link and come back when it arrives; it opens by itself.</p>
+    </section>
+
+    <section id="closed" hidden style="display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center">
+      <span style="font-family: 'Gaegu', cursive; font-size: 30px; font-weight: 700; color: #B5461A">oh! you've got mail</span>
+      <h1 id="closed-title" style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(40px, 6vw, 72px); line-height: 0.95"></h1>
+      <p id="closed-sub" style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 520px"></p>
+      <div class="env" id="closed-env"></div>
+      <button type="button" class="primary" id="break">Break the seal</button>
+    </section>
+
+    <section id="opened" hidden style="display: flex; flex-direction: column; gap: 32px; align-items: center">
+      <article id="paper" class="reveal" style="position: relative; width: 100%; max-width: 620px; min-height: 480px; padding: 56px 48px 64px 76px; box-sizing: border-box; border-radius: 6px; box-shadow: 0 2px 0 rgba(74,52,38,0.15), 0 18px 34px rgba(74,52,38,0.16); line-height: 36px">
+        <div style="position: absolute; top: 0; bottom: 0; left: 56px; width: 2px; background: rgba(217,115,78,0.45)"></div>
+        <div id="o-head"></div>
+        <p id="o-date" style="margin: 0; text-align: right"></p>
+        <p id="o-greeting" style="margin: 36px 0 0"></p>
+        <div id="o-body" style="white-space: pre-wrap; overflow-wrap: anywhere"></div>
+        <p style="margin: 36px 0 0; text-align: right"><span id="o-signoff"></span><br><span id="o-from"></span></p>
+        <div id="o-stickers"></div>
+      </article>
+      <section id="o-media" hidden style="width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 14px">
+        <h2 class="lab">Tucked inside</h2>
+        <div id="o-media-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px"></div>
+      </section>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center">
+        <a id="reply" class="primary" href="letter.html">Write back slowly</a>
+        <a href="mailbox.html" class="ghost">Keep it in my mailbox</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/design.js"></script>
+<script src="site.js"></script>
+<script>
+(async function () {
+  var D = window.SlowpostDesign, SP = window.Slowpost, esc = SP.esc;
+  function $(id) { return document.getElementById(id); }
+  function show(id) { ['loading', 'missing', 'sealed', 'closed', 'opened'].forEach(function (s) { $(s).hidden = s !== id; }); }
+  function word(kind) { return kind === 'postcard' ? 'postcard' : kind === 'card' ? 'card' : 'letter'; }
+
+  function envelopeHtml(env, recipient) {
+    env = env || {};
+    var e = D.find(D.ENVS, env.env), s = D.find(D.SEALS, env.seal), st = D.find(D.STAMPS, env.stamp);
+    return '<div style="position: absolute; inset: 0; background: ' + e.color + '"></div>' +
+      '<div style="position: absolute; left: 0; right: 0; top: 0; height: 56%; clip-path: polygon(0 0, 100% 0, 50% 100%); background: rgba(74,52,38,0.13)"></div>' +
+      '<div style="position: absolute; left: 50%; top: 56%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: ' + s.color + '; box-shadow: inset 0 0 0 6px rgba(255,255,255,0.18)"></div>' +
+      '<div style="position: absolute; right: 14px; top: 12px; width: 56px; height: 68px; padding: 4px; box-sizing: border-box; background: #FFF8EA; border: 2px dashed rgba(74,52,38,0.5)"><div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: ' + st.bg + '">' + D.svg(st.id, st.fg, 30) + '</div></div>' +
+      '<div style="position: absolute; left: 16px; bottom: 12px; font: 14px/1.5 \'Space Mono\', monospace; text-align: left">To: ' + esc(recipient) + '</div>';
+  }
+  function fmt(d) { return new Date(d).toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' }); }
+
+  var token = new URLSearchParams(location.search).get('l');
+  if (!token || !/^[0-9a-f-]{36}$/i.test(token)) { show('missing'); return; }
+
+  var data;
+  try {
+    await SP.ready();
+    var r = await SP.sb.rpc('letter_by_token', { p_token: token });
+    if (r.error) throw r.error;
+    data = r.data;
+  } catch (e) {
+    $('missing').querySelector('p').textContent = 'We couldn’t reach the mailbox just now (' + (e.message || e) + '). Check your connection and reload.';
+    show('missing'); return;
+  }
+  if (!data || data.state === 'missing') { show('missing'); return; }
+
+  if (data.state === 'sealed') {
+    $('sealed-kicker').textContent = data.mine ? 'your ' + word(data.kind) + ' is on its way' : 'a ' + word(data.kind) + ' is on its way';
+    $('sealed-title').textContent = data.mine ? 'To ' + data.recipient_name : 'From ' + data.sender_name;
+    $('sealed-env').innerHTML = envelopeHtml(data.envelope, data.recipient_name);
+    $('sealed-when').textContent = 'Arrives ' + fmt(data.deliver_at) + '.';
+    var target = new Date(data.deliver_at).getTime();
+    function tick() {
+      var left = Math.max(0, target - Date.now());
+      if (left === 0) { $('count').innerHTML = '<p style="margin:0;font-size:16px">It should be in the mailbox within a few minutes. Reload to check.</p>'; return; }
+      var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24, m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+      $('count').innerHTML = [[d, 'days'], [h, 'hours'], [m, 'minutes'], [s, 'seconds']].map(function (p) { return '<div><b>' + p[0] + '</b><span>' + p[1] + '</span></div>'; }).join('');
+      setTimeout(tick, 1000);
+    }
+    tick();
+    show('sealed');
+    return;
+  }
+
+  // Arrived
+  var design = data.design || {};
+  $('closed-title').textContent = data.mine ? 'Your ' + word(data.kind) + ' to ' + data.recipient_name : data.sender_name + ' wrote to you.';
+  $('closed-sub').textContent = 'Sent ' + new Date(data.sent_at).toLocaleDateString(undefined, { month: 'long', day: 'numeric' }) + ', arrived ' + new Date(data.deliver_at).toLocaleDateString(undefined, { month: 'long', day: 'numeric' }) + '. Find a quiet minute first.';
+  $('closed-env').innerHTML = envelopeHtml(design, data.recipient_name);
+
+  D.applyPaper($('paper'), design);
+  $('o-head').innerHTML = D.headerHtml(data.kind, design, esc);
+  $('o-date').textContent = new Date(data.sent_at).toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+  $('o-greeting').textContent = data.greeting || '';
+  $('o-body').textContent = data.body || '';
+  $('o-signoff').textContent = data.signoff || '';
+  $('o-from').textContent = data.sender_name;
+  $('o-stickers').innerHTML = D.stickersHtml(design.stickers);
+  $('reply').href = 'letter.html?to=' + encodeURIComponent(data.sender_name);
+  if (data.mine) $('reply').hidden = true;
+
+  var media = data.attachments || [];
+  if (media.length) {
+    $('o-media').hidden = false;
+    for (var i = 0; i < media.length; i++) {
+      var a = media[i], url = await SP.mediaUrl(a.path), html;
+      if (!url) continue;
+      if (a.kind === 'photo') html = '<figure style="margin: 0; background: #FFFFFF; padding: 10px 10px 30px; box-shadow: 3px 4px 0 rgba(74,52,38,0.2)"><img src="' + esc(url) + '" alt="Photo from ' + esc(data.sender_name) + '" style="width: 100%; height: auto; display: block"><figcaption style="font-family: Gaegu, cursive; font-size: 18px; text-align: center; margin-top: 8px">' + esc(a.file_name || '') + '</figcaption></figure>';
+      else if (a.kind === 'video') html = '<figure style="margin: 0; background: #4A3426; padding: 10px; border-radius: 12px"><video controls preload="metadata" src="' + esc(url) + '" style="width: 100%; border-radius: 6px"></video></figure>';
+      else html = '<figure style="margin: 0; background: #4A3426; color: #FFF8EA; padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 10px"><figcaption style="font: 700 13px \'Space Mono\', monospace">' + (a.kind === 'song' ? 'A SONG · ' : 'VOICE NOTE · ') + esc(a.file_name || '') + '</figcaption><audio controls preload="metadata" src="' + esc(url) + '" style="width: 100%"></audio></figure>';
+      $('o-media-list').insertAdjacentHTML('beforeend', html);
+    }
+  }
+
+  $('break').addEventListener('click', function () { show('opened'); window.scrollTo(0, 0); });
+  show('closed');
+})();
+</script>
+</body>
+</html>
