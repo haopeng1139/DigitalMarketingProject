@@ -1,6 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQSMJVKG3F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Keep private letter links and other query parameters out of Analytics.
+  var pageReferrer = '';
+  if (document.referrer) {
+    try {
+      var referrerUrl = new URL(document.referrer);
+      pageReferrer = referrerUrl.origin + referrerUrl.pathname;
+    } catch (error) {}
+  }
+  gtag('config', 'G-QQSMJVKG3F', {
+    page_location: window.location.origin + window.location.pathname,
+    page_referrer: pageReferrer
+  });
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Slowpost · Community notes</title>
