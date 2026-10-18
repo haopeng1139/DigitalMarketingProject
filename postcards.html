@@ -2,121 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Slowpost</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Bagel+Fat+One&amp;family=Space+Mono:wght@400;700&amp;family=Homemade+Apple&amp;display=swap" rel="stylesheet">
-<style>
-body{margin:0;background:#F4E6C8}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none !important}}
-.top{position:sticky;top:0;z-index:20}
-a,button{transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease}
-a{color:#4A3426}a:hover{color:#C2603E}
-.top{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:2px solid #4A3426;border-radius:12px;background:#F4E6C8}
-.logo{font-family:'Bagel Fat One',cursive;font-size:34px;line-height:1;color:#B5461A;text-decoration:none;text-shadow:3px 3px 0 #F2A54A}
-.logo:hover{color:#B5461A}
-.nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:'Space Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
-.nav a{text-decoration:none;padding:10px 0;border-bottom:3px solid transparent}
-.nav a.on{border-bottom-color:#B5461A;font-weight:700}
-.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:#4A3426;color:#F4E6C8;font:800 16px Nunito,sans-serif;text-decoration:none;border-radius:999px}
-.btn:hover{color:#F0B93A}
-.lab{margin:0;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.pc{border:2px solid #4A3426;border-radius:12px;aspect-ratio:1.5;position:relative;overflow:hidden;display:block;text-decoration:none}
-.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:2px solid #4A3426;border-radius:999px;font:700 15px Nunito,sans-serif;background:#FFF8EA;color:#4A3426;cursor:pointer}
-.tc{border:2px solid #4A3426;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;aspect-ratio:0.72;text-decoration:none}
-</style>
-<style>
-html,body{overflow-x:clip}
-body{background:#F4E6C8;color:#4A3426}
-.top{top:env(safe-area-inset-top,0px) !important}
-@media (max-width: 760px){.top{position:static !important}}
-:focus-visible{outline:3px solid #2A8C8C;outline-offset:2px}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.sp-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#4A3426;color:#FFF8EA;font:700 15px Nunito,sans-serif;padding:12px 20px;border-radius:999px;box-shadow:3px 3px 0 #E8862E;z-index:50;max-width:calc(100vw - 48px)}
-</style>
+<meta name="robots" content="noindex">
+<script>
+(function () { var t = 'write.html?kind=postcard', q = location.search; if (q && t.indexOf('?') < 0) t += q; location.replace(t); })();
+</script>
+<meta http-equiv="refresh" content="1; url=write.html?kind=postcard">
 </head>
-<body style="margin:0">
-<div style="font-family: Nunito, sans-serif; color: #4A3426; background: #F4E6C8; min-height: 100%">
-  <header class="top">
-    <a href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 56px; width: auto; display: block"></a>
-    <nav aria-label="Main" class="nav">
-      <a href="letter.html">Letter</a>
-      <a href="postcards.html" class="on" aria-current="page">Postcards &amp; Cards</a>
-      <a href="penpals.html">Pen Pals</a>
-      <a href="community.html">Community Notes</a>
-      <a href="mailbox.html">Mailbox</a>
-    </nav>
-    <a href="mailbox.html" class="btn">Your mailbox</a>
-  </header>
-
-  <div style="max-width: 1280px; margin: 0 auto; padding: 40px 32px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 48px">
-    <section style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
-      <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 16px">
-        <span class="lab" style="color: #C2603E">Travel postcards</span>
-        <h1 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(44px, 5.4vw, 72px); line-height: 0.92; text-transform: uppercase">Greetings<br>from here.</h1>
-        <p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 440px">Turn a photo from your trip into a postcard. We postmark it with the city you sent it from, so it arrives carrying the place with it.</p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap">
-          <a href="letter.html?kind=postcard" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #B5461A; color: #FFF8EA; font-weight: 800; text-decoration: none; border-radius: 999px; box-shadow: 3px 3px 0 rgba(74,52,38,0.85)">Make a postcard</a>
-          <span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Sending from: Lisbon</span>
-        </div>
-      </div>
-      <div style="flex: 1 1 520px; min-width: 0; display: flex; flex-wrap: wrap; gap: 0; position: relative; justify-content: center; padding: 20px 0">
-        <div role="img" aria-label="Postcard front reading Greetings from Lisbon over striped sky" style="width: 340px; max-width: 100%; aspect-ratio: 1.5; border: 2px solid #4A3426;border-radius:12px; background: #A8D8DA; position: relative; overflow: hidden; transform: rotate(-5deg); box-shadow: 4px 4px 0 rgba(74,52,38,0.85)">
-          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: repeating-linear-gradient(#F2A54A 0 14px, #B5461A 14px 28px, #2F8C98 28px 42px)"></div>
-          <div style="position: absolute; left: 0; right: 0; top: 18px; text-align: center; font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700">GREETINGS FROM</div>
-          <div style="position: absolute; left: 0; right: 0; top: 36px; text-align: center; font-family: 'Bagel Fat One', cursive; font-size: 58px; color: #F0B93A; text-shadow: 3px 3px 0 #B5461A, 5px 5px 0 #4A3426">Lisbon</div>
-        </div>
-        <div role="img" aria-label="Postcard back with a short handwritten note and a stamp" style="width: 340px; max-width: 100%; aspect-ratio: 1.5; border: 2px solid #4A3426;border-radius:12px; background: #FFF8EA; position: relative; margin-left: -60px; margin-top: 80px; transform: rotate(4deg); box-shadow: 4px 4px 0 rgba(74,52,38,0.85); display: flex">
-          <div style="flex: 1; padding: 16px; font-family: 'Homemade Apple', cursive; font-size: 12px; line-height: 2; border-right: 2px solid #4A3426">Mira! The trams here are yellow and the custard tarts are warm. Wish you were on this hill with me. Jun</div>
-          <div style="flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 10px; align-items: flex-end">
-            <div style="width: 52px; height: 62px; background: #F2A54A; border: 2px dashed #4A3426"></div>
-            <div style="align-self: stretch; border-bottom: 1px solid #4A3426; font-family: 'Space Mono', monospace; font-size: 11px; padding-top: 10px">slowpost/mira.writes</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section style="display: flex; flex-direction: column; gap: 18px">
-      <h2 class="lab">Postcard styles</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px">
-        <a href="letter.html?kind=postcard&amp;place=the%20desert" class="pc" style="background: #A8D8DA"><span style="position: absolute; inset: auto 0 0 0; height: 40%; background: #E6C394"></span><span style="position: absolute; left: 14px; top: 12px; font-family: Righteous, sans-serif; font-size: 22px">DESERT</span></a>
-        <a href="letter.html?kind=postcard&amp;place=the%20seaside" class="pc" style="background: #2F8C98"><span style="position: absolute; inset: 50% 0 0 0; background: repeating-linear-gradient(#A8D8DA 0 6px, #2F8C98 6px 14px)"></span><span style="position: absolute; left: 14px; top: 12px; font-family: Righteous, sans-serif; font-size: 22px; color: #FFF8EA">SEASIDE</span></a>
-        <a href="letter.html?kind=postcard&amp;place=the%20big%20city" class="pc" style="background: #B5461A"><span style="position: absolute; left: 14px; top: 12px; font-family: 'Bagel Fat One', cursive; font-size: 30px; color: #F0B93A">big city</span><span style="position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: #4A3426; clip-path: polygon(0 40%, 12% 40%, 12% 10%, 26% 10%, 26% 50%, 40% 50%, 40% 0, 52% 0, 52% 30%, 68% 30%, 68% 15%, 82% 15%, 82% 45%, 100% 45%, 100% 100%, 0 100%)"></span></a>
-        <a href="letter.html?kind=postcard" class="pc" style="background: #FFF8EA; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#4A3426" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="1"/><circle cx="12" cy="12.5" r="3.5"/></svg><span style="font-weight: 700">Use your own photo</span></a>
-      </div>
-    </section>
-
-    <section style="display: flex; flex-direction: column; gap: 18px">
-      <div style="display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: flex-end; justify-content: space-between">
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <span class="lab" style="color: #C2603E">Themed cards</span>
-          <h2 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: 44px; line-height: 0.95; text-transform: uppercase">For the days people send cards</h2>
-        </div>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px">
-        <a class="chip" href="letter.html?kind=card&amp;occasion=birthday" style="background: #4A3426; color: #F4E6C8; text-decoration: none">Birthday</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=graduation" style="text-decoration: none">Graduation</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=wedding" style="text-decoration: none">Wedding</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=baby" style="text-decoration: none">New baby</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=holidays" style="text-decoration: none">Holidays</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=thanks" style="text-decoration: none">Thank you</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=thinking" style="text-decoration: none">Thinking of you</a>
-        <a class="chip" href="letter.html?kind=card&amp;occasion=because" style="text-decoration: none">Just because</a>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px">
-        <a href="letter.html?kind=card&amp;occasion=birthday" class="tc" style="background: #C2603E; color: #F0B93A"><span style="font-family: 'Bagel Fat One', cursive; font-size: 44px; line-height: 0.9; text-shadow: 3px 3px 0 #8F4A2E">happy birthday!</span><span style="font-family: 'Space Mono', monospace; font-size: 12px; color: #FFF4DC">Bubble · plays a song</span></a>
-        <a href="letter.html?kind=card&amp;occasion=birthday" class="tc" style="background: #FFF8EA"><span style="display: flex; flex-direction: column; gap: 5px"><span style="height: 12px; background: #A8D8DA"></span><span style="height: 12px; background: #2F8C98"></span><span style="height: 12px; background: #F2A54A"></span><span style="height: 12px; background: #B5461A"></span></span><span style="font-family: Righteous, sans-serif; font-size: 30px; line-height: 0.95">ANOTHER<br>LAP AROUND<br>THE SUN</span><span style="font-family: 'Space Mono', monospace; font-size: 12px">Sunset stripe</span></a>
-        <a href="letter.html?kind=card&amp;occasion=birthday" class="tc" style="background: #3B82D6; color: #FFF8EA"><span style="width: 70px; height: 120px; background: #CFE3F7; border-radius: 16px; border: 3px solid #2A63A8; align-self: center; margin-top: 10px"></span><span style="font-family: Righteous, sans-serif; font-size: 24px; line-height: 1">CALL ME ON YOUR BIRTHDAY</span><span style="font-family: 'Space Mono', monospace; font-size: 12px">Old phone · voice note inside</span></a>
-        <a href="letter.html?kind=card&amp;occasion=birthday" class="tc" style="background: #F0B93A"><span style="font-family: Righteous, sans-serif; font-size: 72px; line-height: 0.8; color: transparent; -webkit-text-stroke: 2px #4A3426">30</span><span style="font-family: Righteous, sans-serif; font-size: 22px">DIRTY THIRTY</span><span style="font-family: 'Space Mono', monospace; font-size: 12px">Big number · add photos</span></a>
-      </div>
-    </section>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/auth.js"></script>
-<script src="site.js"></script>
+<body style="margin:0;background:#F3E4C4;color:#3E2A1E;font-family:sans-serif;padding:32px">
+<p>This page moved. <a href="write.html?kind=postcard">Continue to Slowpost</a>.</p>
 </body>
 </html>

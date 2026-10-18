@@ -3,205 +3,228 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Slowpost</title>
+<title>Slowpost · Your mailbox</title>
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Space+Mono:wght@400;700&amp;family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Special+Elite&amp;family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/v3.css">
 <style>
-body{margin:0;background:#F4E6C8;color:#4A3426}
-html{scroll-behavior:smooth}
-html,body{overflow-x:clip}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none !important}}
-[hidden]{display:none !important}
-a,button{transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease}
-a{color:#4A3426}a:hover{color:#B5461A}
-:focus-visible{outline:3px solid #2A8C8C;outline-offset:2px}
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:2px solid #4A3426;background:#F4E6C8}
-@media (max-width: 760px){.top{position:static}}
-.nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:'Space Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
-.nav a{text-decoration:none;padding:10px 0;border-bottom:3px solid transparent}
-.nav a.on{border-bottom-color:#B5461A;font-weight:700}
-.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:#4A3426;color:#F4E6C8;font:800 16px Nunito,sans-serif;text-decoration:none;border-radius:999px}
-.btn:hover{color:#F0B93A}
-.primary{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#B5461A;color:#FFF8EA;border:2px solid #4A3426;border-radius:999px;font:900 16px Nunito,sans-serif;cursor:pointer;box-shadow:3px 3px 0 rgba(74,52,38,0.85);text-decoration:none}
-.primary:hover{color:#FFF8EA}
-.ghost{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;background:#FFF8EA;border:2px solid #4A3426;border-radius:999px;font:800 14px Nunito,sans-serif;color:#4A3426;cursor:pointer;text-decoration:none}
-.lab{margin:0;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.inp{font:16px Nunito,sans-serif;color:#4A3426;padding:10px 12px;border:2px solid #4A3426;border-radius:10px;background:#FFFFFF;min-height:46px;box-sizing:border-box;width:100%}
-.card{background:#FFF8EA;border:2px solid #4A3426;border-radius:16px;box-shadow:3px 3px 0 rgba(74,52,38,0.85);padding:18px;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
-.mini-env{flex:0 0 auto;width:96px;height:62px;border-radius:5px;position:relative;overflow:hidden;border:2px solid #4A3426}
-.empty{margin:0;padding:22px;border:2px dashed rgba(74,52,38,.35);border-radius:16px;font-size:16px;line-height:1.5}
-.msg{margin:0;font-size:14px;line-height:1.5;padding:10px 12px;border-radius:10px}
-.msg.err{background:#FBE3D8;color:#8A2F12}
-.msg.ok{background:#DDEEEA;color:#1F4F4C}
-.sp-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#4A3426;color:#FFF8EA;font:700 15px Nunito,sans-serif;padding:12px 20px;border-radius:999px;box-shadow:3px 3px 0 #E8862E;z-index:50;max-width:calc(100vw - 48px)}
+.tabs { display: inline-flex; flex-wrap: wrap; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; background: var(--card); }
+.tabs button { min-height: 46px; padding: 0 18px; border: 0; border-right: 2px solid var(--ink); background: transparent; font: 400 15px 'Special Elite', monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--ink); cursor: pointer; }
+.tabs button:last-child { border-right: 0; }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--card); }
+.row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 14px 16px; border-radius: 8px; background: var(--card); border: 2px dashed rgba(62,42,30,.35); text-decoration: none; }
+a.row:hover { border-style: solid; border-color: var(--ink); color: var(--ink); }
+.row.hi { border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.env { flex: 0 0 auto; width: 92px; height: 58px; border-radius: 4px; position: relative; overflow: hidden; border: 2px solid var(--ink); }
+.empty { margin: 0; padding: 22px; border: 2px dashed rgba(62,42,30,.35); border-radius: 8px; font-size: 16px; line-height: 1.5; }
+.album { padding: 20px; border-radius: 8px; background: var(--blue); color: var(--card); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); display: flex; flex-direction: column; gap: 14px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.perf-s { padding: 5px; background: radial-gradient(circle at 5px 5px, transparent 3px, #FAF1DC 3.5px) -5px -5px/10px 10px; filter: drop-shadow(2px 2px 0 rgba(62,42,30,.8)); }
+.perf-s b { display: flex; align-items: center; justify-content: center; aspect-ratio: .8; }
+.cap { display: block; font: 400 10px 'Special Elite', monospace; text-transform: uppercase; text-align: center; padding-top: 5px; letter-spacing: .04em; line-height: 1.2; }
+.slot { aspect-ratio: .8; border: 2px dashed rgba(250,241,220,.4); display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; font: 400 10px/1.2 'Special Elite', monospace; text-transform: uppercase; color: rgba(250,241,220,.8); }
+details.keys { border: 2px dashed rgba(62,42,30,.35); border-radius: 8px; padding: 12px 14px; background: var(--card); }
+details.keys summary { cursor: pointer; font-weight: 800; min-height: 32px; display: flex; align-items: center; }
 </style>
 </head>
-<body style="margin:0">
-<div style="font-family: Nunito, sans-serif; color: #4A3426; background: #F4E6C8; min-height: 100vh">
-  <header class="top">
-    <a href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 56px; width: auto; display: block"></a>
-    <nav aria-label="Main" class="nav">
-      <a href="letter.html">Letter</a>
-      <a href="postcards.html">Postcards &amp; Cards</a>
-      <a href="penpals.html">Pen Pals</a>
-      <a href="community.html">Community Notes</a>
-      <a href="mailbox.html" class="on" aria-current="page">Mailbox</a>
-    </nav>
-    <a href="letter.html" class="btn">Write a letter</a>
-  </header>
+<body>
+<div class="airmail airmail-bar"></div>
+<header class="top">
+  <a class="logo" href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost"></a>
+  <nav class="nav" aria-label="Main">
+    <a href="write.html">Write</a>
+    <a href="mailbox.html" aria-current="page">Mailbox</a>
+    <a href="community.html">Community</a>
+  </nav>
+  <a class="btn-stamp small" href="write.html">Write a letter</a>
+</header>
 
-  <div style="max-width: 1280px; margin: 0 auto; padding: 36px 32px 72px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
-    <aside style="flex: 1 1 260px; max-width: 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-      <div style="background: #4A3426; color: #F4E6C8; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-family: Righteous, sans-serif; font-size: 26px; color: #F0B93A; line-height: 1.05">You've got mail.</span>
-        <span style="font-size: 15px; line-height: 1.5">This mailbox lives on this browser. No account, no password.</span>
-        <span id="counts" style="font: 12px Silkscreen, monospace; color: #F3C766"></span>
+<main class="wrap" style="display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start">
+  <section style="flex: 999 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between">
+      <h1 class="h1">Your mailbox</h1>
+      <div class="tabs" role="tablist" aria-label="Mailbox">
+        <button type="button" role="tab" id="tab-received" aria-selected="true" aria-controls="list">Received</button>
+        <button type="button" role="tab" id="tab-road" aria-selected="false" aria-controls="list">On the way</button>
+        <button type="button" role="tab" id="tab-sent" aria-selected="false" aria-controls="list">Sent</button>
       </div>
+    </div>
+    <p id="status" class="tw" role="status" style="margin: 0; font-size: 14px">Opening your mailbox…</p>
+    <div id="hearts" hidden></div>
+    <div id="list" role="tabpanel" style="display: flex; flex-direction: column; gap: 12px"></div>
+  </section>
 
-      <div class="card" style="flex-direction: column; align-items: stretch; gap: 10px">
-        <h2 class="lab">Save my mailbox</h2>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5">Get a secret mailbox key so you can open this mailbox on your phone or another computer. Keep it somewhere safe; anyone with it can read your mail.</p>
-        <button type="button" class="ghost" id="make-key" style="justify-content: center">Make my mailbox key</button>
-        <div id="key-box" hidden style="display: flex; flex-direction: column; gap: 8px">
-          <label for="key-out" class="lab">Your key (shown once)</label>
-          <input id="key-out" class="inp" type="text" readonly style="font-family: 'Space Mono', monospace; font-weight: 700; letter-spacing: .04em">
-          <button type="button" class="primary" id="copy-key">Copy key</button>
+  <aside style="flex: 1 1 300px; max-width: 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+    <section class="album" id="album" aria-labelledby="album-title">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <h2 id="album-title" class="display" style="margin: 0; font-size: 28px">Stamp album</h2>
+        <span class="tw" id="album-count" style="font-size: 14px">0 of 12</span>
+      </div>
+      <div style="height: 12px; border: 2px solid var(--card); border-radius: 3px; overflow: hidden"><div id="album-bar" style="width: 0; height: 100%; background: var(--mustard); transition: width .6s ease"></div></div>
+      <div class="grid4" id="album-grid"></div>
+      <span id="album-next" style="font-size: 14px"></span>
+    </section>
+
+    <details class="keys">
+      <summary>Use this mailbox on another device</summary>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 10px">
+        <p style="margin: 0; font-size: 14px; line-height: 1.5">Your mailbox lives on this browser. Make a key to open it on your phone or another computer. Keep it private: anyone with it can read your mail.</p>
+        <button type="button" class="btn-plain" id="make-key">Make my mailbox key</button>
+        <div id="key-box" hidden class="field">
+          <label for="key-out" class="label">Your key (shown once)</label>
+          <input id="key-out" class="input" type="text" readonly style="font-family: 'Special Elite', monospace">
+          <button type="button" class="btn-stamp small" id="copy-key">Copy key</button>
         </div>
+        <form id="use-key" class="field" style="padding-top: 8px; border-top: 1px dashed rgba(62,42,30,.3)">
+          <label for="key-in" class="label">Have a key? Open that mailbox here</label>
+          <input id="key-in" class="input" type="text" placeholder="SLOW-XXXX-XXXX-XXXX-XXXX" autocapitalize="characters" spellcheck="false" style="font-family: 'Special Elite', monospace">
+          <button type="submit" class="btn-plain">Open mailbox</button>
+          <p id="key-msg" class="msg" hidden></p>
+        </form>
       </div>
+    </details>
+  </aside>
+</main>
 
-      <form class="card" id="use-key-form" style="flex-direction: column; align-items: stretch; gap: 10px">
-        <h2 class="lab">Open a mailbox here</h2>
-        <label for="key-in" style="font-size: 14px; line-height: 1.5">Have a key from another device? Enter it to open that mailbox on this browser.</label>
-        <input id="key-in" class="inp" type="text" placeholder="SLOW-XXXX-XXXX-XXXX-XXXX" autocapitalize="characters" spellcheck="false" style="font-family: 'Space Mono', monospace">
-        <button type="submit" class="ghost" style="justify-content: center">Open mailbox</button>
-        <p id="key-msg" class="msg" hidden></p>
-      </form>
-    </aside>
-
-    <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 34px">
-      <h1 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 56px); line-height: 0.95">Your mailbox</h1>
-      <p id="status" role="status" style="margin: 0; font: 15px 'Space Mono', monospace">Opening your mailbox…</p>
-
-      <section style="display: flex; flex-direction: column; gap: 14px">
-        <h2 class="lab">Received</h2>
-        <div id="received" style="display: flex; flex-direction: column; gap: 12px"></div>
-      </section>
-
-      <section style="display: flex; flex-direction: column; gap: 14px">
-        <h2 class="lab">On the road</h2>
-        <div id="road" style="display: flex; flex-direction: column; gap: 12px"></div>
-      </section>
-
-      <section style="display: flex; flex-direction: column; gap: 14px">
-        <h2 class="lab">Sent and delivered</h2>
-        <div id="sent" style="display: flex; flex-direction: column; gap: 12px"></div>
-      </section>
-    </main>
+<footer class="foot">
+  <div class="inner">
+    <span class="tw" style="font-size: 13px; opacity: .8">Follow the mail</span>
+    <nav aria-label="Slowpost on social media">
+      <a href="https://www.instagram.com/slowpostletter/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61595393611281" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.pinterest.com/slowpost/" target="_blank" rel="noopener">Pinterest</a>
+      <a href="https://x.com/slowpostletter" target="_blank" rel="noopener">X</a>
+    </nav>
   </div>
-</div>
+  <div class="airmail airmail-bar"></div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/design.js"></script>
-<script src="site.js"></script>
+<script src="js/time.js"></script>
 <script>
-(async function () {
-  var D = window.SlowpostDesign, SP = window.Slowpost, esc = SP.esc;
+(function () {
+  var D = window.SlowpostDesign, SP = window.Slowpost, T = window.SlowpostTime, esc = SP.esc;
   function $(id) { return document.getElementById(id); }
   function toast(m) { var t = document.createElement('div'); t.className = 'sp-toast'; t.setAttribute('role', 'status'); t.textContent = m; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 3200); }
-  function day(d) { return new Date(d).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }); }
-  function when(d) { return new Date(d).toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); }
-  function word(kind) { return kind === 'postcard' ? 'Postcard' : kind === 'card' ? 'Card' : 'Letter'; }
-  function link(token) { return new URL('open.html?l=' + token, location.href).href; }
-  function miniEnv(design) {
+  function word(k) { return k === 'postcard' ? 'Postcard' : k === 'card' ? 'Card' : 'Letter'; }
+  function day(d) { return new Date(d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); }
+  function link(t) { return new URL('open.html?l=' + t, location.href).href; }
+  function env(design) {
     design = design || {};
-    var e = D.find(D.ENVS, design.env), s = D.find(D.SEALS, design.seal), st = D.find(D.STAMPS, design.stamp);
-    return '<div class="mini-env" aria-hidden="true" style="background: ' + e.color + '"><div style="position: absolute; inset: 0 0 44% 0; clip-path: polygon(0 0, 100% 0, 50% 100%); background: rgba(74,52,38,.13)"></div>' +
-      '<div style="position: absolute; left: 50%; top: 56%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: ' + s.color + '"></div>' +
-      '<div style="position: absolute; right: 5px; top: 5px; width: 16px; height: 19px; background: ' + st.bg + '; outline: 2px dashed #FFF8EA; outline-offset: -2px"></div></div>';
+    var e = D.find(D.ENVS, design.env), s = D.find(D.SEALS, design.seal);
+    return '<span class="env" aria-hidden="true" style="background: ' + e.color + '"><span style="position: absolute; inset: 0 0 44% 0; clip-path: polygon(0 0, 100% 0, 50% 100%); background: rgba(62,42,30,.13)"></span><span style="position: absolute; left: 50%; top: 56%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: ' + s.color + '"></span></span>';
+  }
+
+  var STAMPS = [
+    ['first_letter', 'First letter', '#C2412D', 'heart', '#FAF1DC', 'Send your first letter'],
+    ['first_open', 'First opened', '#E8A93A', 'sun', '#C2412D', 'Open a letter someone sent you'],
+    ['first_reply', 'First reply', '#BFDDD8', 'plane', '#2B5A8A', 'Write back to someone who wrote you'],
+    ['postcard', 'Postcard', '#F2B49A', 'plane', '#C2412D', 'Send a postcard'],
+    ['card', 'A card', '#F3C766', 'cake', '#C2412D', 'Send a card'],
+    ['morning', 'Early bird', '#E07B39', 'sun', '#FAF1DC', 'Send one for tomorrow morning'],
+    ['slow_boat', 'Slow boat', '#2B5A8A', 'moon', '#F3C766', 'Send one by slow boat'],
+    ['time_capsule', 'Time capsule', '#3E2A1E', 'star', '#F3C766', 'Seal a time capsule'],
+    ['with_photo', 'With a photo', '#3E8A86', 'flower', '#FAF1DC', 'Tuck in a photo'],
+    ['with_voice', 'Voice note', '#E9A08A', 'cassette', '#3E2A1E', 'Tuck in a voice note or song'],
+    ['five_letters', '5 letters', '#C2412D', 'star', '#F3C766', 'Send 5 letters'],
+    ['ten_letters', '10 letters', '#E8A93A', 'heart', '#C2412D', 'Send 10 letters']
+  ];
+
+  var tab = location.hash === '#sent' ? 'sent' : location.hash === '#road' ? 'road' : 'received';
+  var data = { received: [], road: [], sent: [] }, me = null;
+
+  function renderList() {
+    ['received', 'road', 'sent'].forEach(function (t) { $('tab-' + t).setAttribute('aria-selected', String(t === tab)); $('tab-' + t).textContent = { received: 'Received', road: 'On the way', sent: 'Sent' }[t] + ' · ' + data[t].length; });
+    var rows = data[tab], html = '';
+    if (tab === 'received') {
+      html = rows.length ? rows.map(function (l) {
+        return '<a class="row" href="open.html?l=' + l.open_token + '">' + env(l.design) + '<span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 19px">' + word(l.kind) + ' from ' + esc(l.sender_name) + '</strong><span class="tw" style="font-size: 13px">Delivered ' + day(l.delivered_at || l.deliver_at) + (l.heart_at ? ' · you sent a ♥' : '') + '</span></span><span style="font-weight: 800">Read again</span></a>';
+      }).join('') : '<p class="empty">Nothing here yet. When someone sends you a Slowpost link and it arrives, opening it puts the letter in this mailbox.</p>';
+    } else if (tab === 'road') {
+      html = rows.length ? rows.map(function (l) {
+        var start = new Date(l.sent_at).getTime(), end = new Date(l.deliver_at).getTime();
+        var pct = Math.max(3, Math.min(100, Math.round((Date.now() - start) / Math.max(1, end - start) * 100)));
+        return '<div class="row hi">' + env(l.design) + '<span style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 19px">' + word(l.kind) + ' to ' + esc(l.recipient_name) + '</strong><span class="tw" style="font-size: 13px">Arrives ' + esc(T.fmt(new Date(l.deliver_at), l.recipient_tz)) + ' their time</span>' +
+          '<span role="progressbar" aria-label="Journey" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100" style="display: block; height: 10px; border: 2px solid var(--ink); border-radius: 3px; overflow: hidden; background: #fff"><span style="display: block; height: 100%; width: ' + pct + '%; background: repeating-linear-gradient(135deg, #C2412D 0 8px, #FAF1DC 8px 12px, #2B5A8A 12px 20px, #FAF1DC 20px 24px)"></span></span></span>' +
+          '<button type="button" class="btn-plain" data-copy="' + l.open_token + '">Copy link</button></div>';
+      }).join('') : '<p class="empty">Nothing in the mail right now. <a href="write.html">Write a letter</a>.</p>';
+    } else {
+      html = rows.length ? rows.map(function (l) {
+        return '<div class="row">' + env(l.design) + '<span style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 19px">' + word(l.kind) + ' to ' + esc(l.recipient_name) + '</strong><span class="tw" style="font-size: 13px">Delivered ' + day(l.delivered_at || l.deliver_at) + (l.opened_at ? ' · opened ' + day(l.opened_at) : ' · not opened yet') + '</span></span>' +
+          (l.heart_at ? '<span class="badge" title="They sent a heart back">♥ heart back</span>' : '') +
+          '<span style="display: flex; gap: 8px; flex-wrap: wrap"><a class="btn-plain" href="open.html?l=' + l.open_token + '">View</a><button type="button" class="btn-plain" data-copy="' + l.open_token + '">Copy link</button></span></div>';
+      }).join('') : '<p class="empty">Letters you send show up here once they arrive.</p>';
+    }
+    $('list').innerHTML = html;
+  }
+
+  function renderHearts() {
+    var hearts = data.sent.filter(function (l) { return l.heart_at && Date.now() - new Date(l.heart_at).getTime() < 7 * 864e5; });
+    if (!hearts.length) { $('hearts').hidden = true; return; }
+    $('hearts').hidden = false;
+    $('hearts').innerHTML = '<div class="row hi" style="background: #FBE1D3"><span aria-hidden="true" style="font-size: 30px; color: var(--red)">♥</span><span style="flex: 1 1 200px"><strong>' + hearts.map(function (l) { return esc(l.recipient_name); }).join(', ') + '</strong> sent ' + (hearts.length === 1 ? 'a heart' : 'hearts') + ' back for your ' + (hearts.length === 1 ? 'letter' : 'letters') + '.</span></div>';
+  }
+
+  function renderAlbum(have) {
+    var n = have.length;
+    $('album-count').textContent = n + ' of ' + STAMPS.length;
+    $('album-bar').style.width = Math.round(n / STAMPS.length * 100) + '%';
+    $('album-grid').innerHTML = STAMPS.map(function (s) {
+      if (have.indexOf(s[0]) >= 0) return '<div><div class="perf-s"><b style="background: ' + s[2] + '">' + D.svg(s[3], s[4], 24) + '</b></div><span class="cap">' + esc(s[1]) + '</span></div>';
+      return '<div class="slot" title="' + esc(s[5]) + '">' + esc(s[1]) + '</div>';
+    }).join('');
+    var next = STAMPS.filter(function (s) { return have.indexOf(s[0]) < 0; })[0];
+    $('album-next').textContent = next ? 'Next up: ' + next[5].charAt(0).toLowerCase() + next[5].slice(1) + '.' : 'You collected every stamp. Postmaster status.';
   }
 
   async function load() {
-    $('status').hidden = false;
-    $('status').textContent = 'Opening your mailbox…';
-    var mb;
-    try { mb = await SP.ready(); }
-    catch (e) { $('status').textContent = 'We couldn’t open your mailbox: ' + (e.message || e) + '. Check your connection and reload.'; return; }
-
-    var r = await SP.sb.from('letters')
-      .select('id, kind, design, sender_name, recipient_name, status, sent_at, deliver_at, delivered_at, opened_at, open_token, sender_mailbox, recipient_mailbox')
-      .neq('status', 'draft').order('sent_at', { ascending: false });
+    $('status').hidden = false; $('status').textContent = 'Opening your mailbox…';
+    try { me = await SP.ready(); } catch (e) { $('status').textContent = 'We couldn’t open your mailbox (' + (e.message || e) + '). Check your connection and reload.'; return; }
+    var r = await SP.sb.from('letters').select('id, kind, design, sender_name, recipient_name, recipient_tz, status, sent_at, deliver_at, delivered_at, opened_at, heart_at, open_token, sender_mailbox, recipient_mailbox').neq('status', 'draft').order('sent_at', { ascending: false });
+    var st = await SP.sb.from('mailbox_stamps').select('stamp_id');
     if (r.error) { $('status').textContent = 'We couldn’t load your letters: ' + r.error.message; return; }
     $('status').hidden = true;
-
-    var mine = r.data.filter(function (l) { return l.sender_mailbox === mb.id; });
-    var received = r.data.filter(function (l) { return l.recipient_mailbox === mb.id && l.sender_mailbox !== mb.id; });
-    var road = mine.filter(function (l) { return l.status === 'in_transit'; });
-    var done = mine.filter(function (l) { return l.status !== 'in_transit'; });
-    $('counts').textContent = received.length + ' received · ' + mine.length + ' sent';
-
-    $('received').innerHTML = received.length ? received.map(function (l) {
-      return '<a class="card" href="open.html?l=' + l.open_token + '" style="text-decoration: none">' + miniEnv(l.design) +
-        '<span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 19px">' + word(l.kind) + ' from ' + esc(l.sender_name) + '</strong>' +
-        '<span style="font-size: 14px">Arrived ' + day(l.delivered_at || l.deliver_at) + (l.opened_at ? '' : ' · <b style="color: #B5461A">not opened yet</b>') + '</span></span>' +
-        '<span style="font-weight: 900">Open →</span></a>';
-    }).join('') : '<p class="empty">Nothing here yet. When someone sends you a Slowpost link and it arrives, opening it puts the letter in this mailbox.</p>';
-
-    $('road').innerHTML = road.length ? road.map(function (l) {
-      var start = new Date(l.sent_at).getTime(), end = new Date(l.deliver_at).getTime();
-      var pct = Math.max(3, Math.min(100, Math.round((Date.now() - start) / Math.max(1, end - start) * 100)));
-      return '<div class="card">' + miniEnv(l.design) +
-        '<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><strong style="font-size: 19px">' + word(l.kind) + ' to ' + esc(l.recipient_name) + '</strong>' +
-        '<span style="font-size: 14px">Arrives ' + when(l.deliver_at) + '</span>' +
-        '<div style="height: 12px; border: 2px solid #4A3426; border-radius: 999px; background: #FFFFFF; overflow: hidden" role="progressbar" aria-label="Journey" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><div style="height: 100%; width: ' + pct + '%; background: repeating-linear-gradient(90deg, #E8862E 0 10px, #F0B93A 10px 20px)"></div></div></div>' +
-        '<button type="button" class="ghost" data-copy="' + l.open_token + '">Copy link</button></div>';
-    }).join('') : '<p class="empty">No letters in the mail right now. <a href="letter.html">Write one</a>.</p>';
-
-    $('sent').innerHTML = done.length ? done.map(function (l) {
-      return '<div class="card">' + miniEnv(l.design) +
-        '<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 19px">' + word(l.kind) + ' to ' + esc(l.recipient_name) + '</strong>' +
-        '<span style="font-size: 14px">Arrived ' + day(l.delivered_at || l.deliver_at) + (l.opened_at ? ' · opened ' + day(l.opened_at) : ' · waiting to be opened') + '</span></div>' +
-        '<div style="display: flex; gap: 8px; flex-wrap: wrap"><a class="ghost" href="open.html?l=' + l.open_token + '">View</a><button type="button" class="ghost" data-copy="' + l.open_token + '">Copy link</button></div></div>';
-    }).join('') : '<p class="empty">Letters you send appear here once they arrive.</p>';
+    var mine = r.data.filter(function (l) { return l.sender_mailbox === me.id; });
+    data.received = r.data.filter(function (l) { return l.recipient_mailbox === me.id && l.sender_mailbox !== me.id; });
+    data.road = mine.filter(function (l) { return l.status === 'in_transit'; });
+    data.sent = mine.filter(function (l) { return l.status !== 'in_transit'; });
+    if (tab === 'received' && !data.received.length && data.road.length) tab = 'road';
+    renderList(); renderHearts();
+    renderAlbum(st.error ? [] : st.data.map(function (x) { return x.stamp_id; }));
   }
 
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-copy]');
-    if (!b) return;
-    var v = link(b.getAttribute('data-copy'));
-    if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { toast('Link copied.'); }, function () { toast(v); });
-    else toast(v);
+  ['received', 'road', 'sent'].forEach(function (t) {
+    $('tab-' + t).addEventListener('click', function () { tab = t; history.replaceState(null, '', '#' + (t === 'received' ? '' : t)); renderList(); });
   });
-
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var v = link(b.getAttribute('data-copy'));
+    if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { toast('Link copied.'); }, function () { toast(v); }); else toast(v);
+  });
   $('make-key').addEventListener('click', async function () {
+    await SP.ready();
     var r = await SP.sb.rpc('new_mailbox_key');
     if (r.error) { toast('Couldn’t make a key: ' + r.error.message); return; }
-    $('key-out').value = r.data;
-    $('key-box').hidden = false;
-    $('make-key').textContent = 'Make a new key (replaces the old one)';
+    $('key-out').value = r.data; $('key-box').hidden = false; $('make-key').textContent = 'Make a new key (replaces the old one)';
   });
   $('copy-key').addEventListener('click', function () {
     var v = $('key-out').value;
-    if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { toast('Key copied. Keep it somewhere safe.'); }, function () { $('key-out').select(); });
-    else $('key-out').select();
+    if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { toast('Key copied. Keep it somewhere safe.'); }, function () { $('key-out').select(); }); else $('key-out').select();
   });
-  $('use-key-form').addEventListener('submit', async function (e) {
-    e.preventDefault(); e.stopPropagation();
-    var k = $('key-in').value.trim();
-    if (!k) return;
+  $('use-key').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var k = $('key-in').value.trim(); if (!k) return;
     await SP.ready();
-    var r = await SP.sb.rpc('use_mailbox_key', { p_key: k });
-    var m = $('key-msg');
+    var r = await SP.sb.rpc('use_mailbox_key', { p_key: k }), m = $('key-msg');
     m.hidden = false;
     if (r.error) { m.className = 'msg err'; m.textContent = r.error.message; return; }
-    m.className = 'msg ok'; m.textContent = 'Mailbox opened on this browser.';
-    $('key-in').value = '';
-    await SP.refreshMailbox();
-    load();
-  }, true);
-
+    m.className = 'msg ok'; m.textContent = 'Mailbox opened on this browser.'; $('key-in').value = '';
+    await SP.refreshMailbox(); load();
+  });
   load();
 })();
 </script>

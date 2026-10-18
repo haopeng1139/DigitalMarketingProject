@@ -4,272 +4,158 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Slowpost</title>
+<meta name="description" content="Write a real letter for someone you love. Decorate it, seal it, and it arrives in a few days. No account, no feed, no rush.">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Space+Mono:wght@400;700&amp;family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Special+Elite&amp;family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/v3.css">
 <style>
-body{margin:0;background:#F4E6C8}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none !important}}
-a{color:#4A3426}a:hover{color:#B5461A}
-.top{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;padding:10px 32px;border-bottom:2px solid rgba(74,52,38,0.25);background:rgba(244,230,200,0.94)}
-.nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:'Space Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
-.nav a{text-decoration:none;padding:10px 0;border-bottom:3px solid transparent;transition:border-color .2s ease}
-.nav a:hover{border-bottom-color:#E8862E}
-.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:#4A3426;color:#F4E6C8;font:800 16px Nunito,sans-serif;text-decoration:none;border-radius:999px;transition:background-color .2s ease}
-.btn:hover{color:#F4E6C8;background:#B5461A}
-.cta{display:inline-flex;align-items:center;min-height:54px;padding:0 26px;background:#B5461A;color:#FFF8EA;font:900 17px Nunito,sans-serif;text-decoration:none;border-radius:999px;border:2px solid #4A3426;box-shadow:3px 3px 0 #4A3426;transition:transform .2s ease, box-shadow .2s ease}
-.cta:hover{color:#FFF8EA;transform:translate(-1px,-1px);box-shadow:4px 4px 0 #4A3426}
-.cta2{display:inline-flex;align-items:center;min-height:54px;padding:0 24px;background:#FFF8EA;font:900 17px Nunito,sans-serif;text-decoration:none;border-radius:999px;border:2px solid #4A3426;box-shadow:3px 3px 0 #4A3426;transition:transform .2s ease, box-shadow .2s ease}
-.cta2:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #4A3426}
-.px{font-family:Silkscreen,monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
-.card{border:2px solid #4A3426;border-radius:18px;box-shadow:4px 4px 0 rgba(74,52,38,0.85);transition:transform .25s ease, box-shadow .25s ease}
-a.card:hover{transform:translateY(-3px);box-shadow:4px 7px 0 rgba(74,52,38,0.85)}
-.jump{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;background:#FFF8EA;border:2px solid rgba(74,52,38,0.35);font:800 14px Nunito,sans-serif;text-decoration:none;transition:border-color .2s ease, background-color .2s ease}
-.jump:hover{border-color:#4A3426;background:#FBEFD6}
-.share{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:2px solid #4A3426;border-radius:999px;font:800 14px Nunito,sans-serif;color:#4A3426;background:#FFF8EA;text-decoration:none}
-.stk{filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 3px 4px rgba(74,52,38,.2))}
-.h2{margin:0;font-family:Righteous,sans-serif;font-weight:400;font-size:clamp(34px,4.2vw,52px);line-height:1.05}
-section[id]{scroll-margin-top:90px}
-</style>
-<style>
-html,body{overflow-x:clip}
-body{background:#F4E6C8;color:#4A3426}
-.top{top:env(safe-area-inset-top,0px) !important}
-@media (max-width: 760px){.top{position:static !important}}
-:focus-visible{outline:3px solid #2A8C8C;outline-offset:2px}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.sp-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#4A3426;color:#FFF8EA;font:700 15px Nunito,sans-serif;padding:12px 20px;border-radius:999px;box-shadow:3px 3px 0 #E8862E;z-index:50;max-width:calc(100vw - 48px)}
+.hero { max-width: 1200px; margin: 0 auto; padding: 52px 32px 72px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+.poster { position: relative; height: 380px; border-radius: 4px; overflow: hidden; background: var(--sky); }
+.poster > div { position: absolute; }
+.steps3 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
+.steps3 li > div { padding: 24px; display: flex; flex-direction: column; gap: 10px; min-height: 190px; }
+.send3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
+.send3 a { transition: transform .2s ease; }
+.send3 a:hover { transform: translateY(-3px); }
+@media (max-width: 600px) { .hero { padding: 32px 16px 56px; } .poster { height: 300px; } }
 </style>
 </head>
-<body style="margin:0">
-<div style="font-family: Nunito, sans-serif; color: #4A3426; background: #F4E6C8; min-height: 100%">
-  <header class="top">
-    <a href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 52px; width: auto; display: block"></a>
-    <nav aria-label="Main" class="nav">
-      <a href="letter.html">Letter</a>
-      <a href="postcards.html">Postcards &amp; Cards</a>
-      <a href="penpals.html">Pen Pals</a>
-      <a href="community.html">Community Notes</a>
-      <a href="mailbox.html">Mailbox</a>
-    </nav>
-    <a href="mailbox.html" class="btn">Your mailbox</a>
-  </header>
-
-  <section style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
-    <div style="flex: 1 1 500px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
-      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
-        <span class="px" style="background: #4A3426; color: #F3C766; padding: 6px 10px; border-radius: 6px">Player 1: you</span>
-        <span class="px" style="background: #D7ECE8; color: #23595C; padding: 6px 10px; border-radius: 6px">Lv 1 · Letter writer</span>
-      </div>
-      <h1 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(50px, 6.6vw, 90px); line-height: 0.98">Write it slowly.<br><span style="color: #B5461A; text-shadow: 3px 3px 0 rgba(243,199,102,0.7)">Send it with love.</span></h1>
-      <p style="margin: 0; font-size: 19px; line-height: 1.6; max-width: 500px">Letters for friends, lovers and parents. Pick the paper, add stickers and a stamp, tuck in a photo or a song, and let it arrive in a few days, the way letters used to.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 14px">
-        <a href="letter.html" class="cta">Write a letter</a>
-        <a href="mailbox.html" class="cta2">Open your mailbox</a>
-      </div>
-    </div>
-
-    <div style="flex: 1 1 460px; min-width: 0; position: relative; padding: 20px 0">
-      <div role="img" aria-label="An orange Slowpost mailbox with its flag up in the desert, under a striped 70s sunset" style="position: relative; height: 410px; border-radius: 28px; background: linear-gradient(#CFE6E2, #E9F2EC 70%); overflow: hidden; border: 2px solid #4A3426; box-shadow: 5px 5px 0 rgba(74,52,38,0.85)">
-        <div style="position: absolute; left: 50%; bottom: 120px; width: 290px; height: 145px; margin-left: -145px; border-radius: 145px 145px 0 0; background: linear-gradient(#F3C766 0 38%, transparent 38% 44%, #EDA35E 44% 61%, transparent 61% 67%, #E07F55 67% 81%, transparent 81% 87%, #C8693F 87% 100%)"></div>
-        <div style="position: absolute; left: 0; width: 38%; bottom: 118px; height: 76px; background: #D6A07C; clip-path: polygon(0 30%, 30% 20%, 45% 0, 70% 5%, 85% 40%, 100% 100%, 0 100%)"></div>
-        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 122px; background: linear-gradient(#EED3A6, #E8C792)"></div>
-        <div style="position: absolute; left: 11%; bottom: 90px; width: 32px; height: 165px; background: #6E9A72; border-radius: 16px"></div>
-        <div style="position: absolute; left: calc(11% - 26px); bottom: 168px; width: 22px; height: 58px; background: #6E9A72; border-radius: 11px"></div>
-        <div style="position: absolute; left: calc(11% - 26px); bottom: 168px; width: 40px; height: 20px; background: #6E9A72; border-radius: 10px"></div>
-        <div style="position: absolute; right: 11%; bottom: 80px; width: 36px; height: 205px; background: #6E9A72; border-radius: 18px"></div>
-        <div style="position: absolute; right: calc(11% - 30px); bottom: 188px; width: 24px; height: 66px; background: #6E9A72; border-radius: 12px"></div>
-        <div style="position: absolute; right: calc(11% - 30px); bottom: 188px; width: 46px; height: 20px; background: #6E9A72; border-radius: 10px"></div>
-        <div style="position: absolute; left: 50%; bottom: 50px; width: 22px; height: 150px; margin-left: -11px; background: #6B4A34"></div>
-        <div style="position: absolute; left: 50%; bottom: 190px; width: 228px; height: 114px; margin-left: -114px; background: #E8862E; border: 2px solid #4A3426; border-radius: 57px 57px 8px 8px; box-sizing: border-box; box-shadow: inset -14px -10px 0 rgba(150,60,20,0.18); display: flex; align-items: center; justify-content: center"><span style="font-family: Righteous, sans-serif; font-size: 25px; color: #FFF8EA; letter-spacing: 0.04em">SLOWPOST</span></div>
-        <div style="position: absolute; left: calc(50% + 98px); bottom: 230px; width: 7px; height: 88px; background: #4A3426"></div>
-        <div style="position: absolute; left: calc(50% + 103px); bottom: 290px; width: 44px; height: 26px; background: #D9532B; border-radius: 2px"></div>
-        <span class="px" style="position: absolute; left: calc(50% + 86px); top: 40px; background: #FFF8EA; border: 2px solid rgba(74,52,38,0.5); padding: 4px 8px; border-radius: 6px; color: #B5461A">+1 stamp!</span>
-      </div>
-      <span class="stk" aria-hidden="true" style="position: absolute; left: -14px; top: 2px; width: 54px; height: 54px; transform: rotate(-10deg)"><svg viewBox="0 0 24 24" style="width: 100%; height: 100%"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z" fill="#E07F55"></path></svg></span>
-      <div style="position: absolute; left: 18px; bottom: 0; background: #FFF8EA; border: 2px solid #4A3426; border-radius: 14px; padding: 10px 14px; display: flex; gap: 10px; align-items: center; box-shadow: 3px 3px 0 rgba(74,52,38,0.85)">
-        <span style="width: 34px; height: 34px; border-radius: 50%; background: #F3C766; display: flex; align-items: center; justify-content: center; font-weight: 900">T</span>
-        <span style="font-size: 14px; line-height: 1.3"><b>Theo</b> just mailed a love letter<br>to Lyon · arrives in 4 days</span>
-      </div>
-    </div>
-  </section>
-
-  <nav aria-label="On this page" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 48px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
-    <span style="font-family: 'Space Mono', monospace; font-size: 13px; margin-right: 6px">Jump to</span>
-    <a href="#who" class="jump">Who's it for</a>
-    <a href="#live" class="jump">Right now</a>
-    <a href="#album" class="jump">Stamp album</a>
-    <a href="#mailbag" class="jump">What you can send</a>
+<body>
+<div class="airmail airmail-bar"></div>
+<header class="top">
+  <a class="logo" href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost"></a>
+  <nav class="nav" aria-label="Main">
+    <a href="write.html">Write</a>
+    <a href="mailbox.html">Mailbox</a>
+    <a href="community.html">Community</a>
   </nav>
+  <a class="ticket" href="mailbox.html">Your mailbox</a>
+</header>
 
-  <div aria-hidden="true" style="max-width: 1216px; margin: 0 auto; display: flex; gap: 6px; padding: 0 32px; box-sizing: content-box">
-    <span style="flex: 1; height: 6px; border-radius: 3px; background: #F3C766"></span><span style="flex: 1; height: 6px; border-radius: 3px; background: #EDA35E"></span><span style="flex: 1; height: 6px; border-radius: 3px; background: #E07F55"></span><span style="flex: 1; height: 6px; border-radius: 3px; background: #9FCFCB"></span>
+<main>
+  <section class="hero">
+    <div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+        <svg width="132" height="70" viewBox="0 0 132 70" aria-hidden="true"><circle cx="35" cy="35" r="29" fill="none" stroke="#C2412D" stroke-width="2.5" opacity=".75"></circle><circle cx="35" cy="35" r="21" fill="none" stroke="#C2412D" stroke-width="1.2" opacity=".75"></circle><text x="35" y="32" text-anchor="middle" font-family="Special Elite, monospace" font-size="8.5" fill="#C2412D">SLOWPOST</text><text x="35" y="44" text-anchor="middle" font-family="Special Elite, monospace" font-size="8.5" fill="#C2412D">FIRST CLASS</text><path d="M68 22q8-6 16 0t16 0t16 0t14 0M68 35q8-6 16 0t16 0t16 0t14 0M68 48q8-6 16 0t16 0t16 0t14 0" fill="none" stroke="#C2412D" stroke-width="2" opacity=".7"></path></svg>
+        <span class="badge dark">Player 1: you</span>
+      </div>
+      <h1 class="display" style="margin: 0; font-size: clamp(48px, 6.6vw, 92px); line-height: .95">Write it slowly.<br><span style="color: var(--red); text-shadow: 4px 4px 0 var(--mustard)">Send it with love.</span></h1>
+      <p style="margin: 0; font-size: 20px; line-height: 1.55; max-width: 470px">A real letter for someone you love, delivered in a few days. No account, no feed, no rush.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: center">
+        <a href="write.html" class="btn-stamp">Write a letter</a>
+        <a href="mailbox.html" style="font-weight: 800; font-size: 17px">or open your mailbox</a>
+      </div>
+    </div>
+
+    <div style="flex: 1 1 440px; min-width: 0; position: relative">
+      <div class="airmail" style="padding: 10px; border-radius: 10px; box-shadow: 6px 6px 0 var(--ink)">
+        <div class="poster" role="img" aria-label="A sunset poster: a striped sun over the desert and an orange Slowpost mailbox">
+          <div style="inset: 0; background: radial-gradient(rgba(62,42,30,.12) 1.4px, transparent 1.6px) 0 0/9px 9px"></div>
+          <div style="left: 0; right: 0; top: 34px; display: flex; flex-direction: column; gap: 6px"><span style="height: 10px; background: var(--card)"></span><span style="height: 8px; background: var(--card); opacity: .8"></span><span style="height: 6px; background: var(--card); opacity: .6"></span></div>
+          <div style="left: 50%; bottom: 108px; width: 280px; height: 140px; margin-left: -140px; border-radius: 140px 140px 0 0; background: linear-gradient(#E8A93A 0 36%, transparent 36% 42%, #E07B39 42% 60%, transparent 60% 66%, #C2412D 66% 80%, transparent 80% 86%, #8E3423 86%)"></div>
+          <div style="left: 0; right: 0; bottom: 0; height: 110px; background: #E9C48F radial-gradient(rgba(62,42,30,.14) 1.4px, transparent 1.6px) 0 0/9px 9px"></div>
+          <div style="left: 11%; bottom: 76px; width: 30px; height: 150px; background: #4F8A5B; border-radius: 15px; border: 2px solid var(--ink)"></div>
+          <div style="right: 11%; bottom: 70px; width: 34px; height: 190px; background: #4F8A5B; border-radius: 17px; border: 2px solid var(--ink)"></div>
+          <div style="left: 50%; bottom: 44px; width: 22px; height: 140px; margin-left: -11px; background: #6B4A34; border: 2px solid var(--ink)"></div>
+          <div style="left: 50%; bottom: 174px; width: 220px; max-width: 70%; height: 110px; transform: translateX(-50%); background: #E07B39; border: 2px solid var(--ink); border-radius: 55px 55px 8px 8px; display: flex; align-items: center; justify-content: center"><span class="display" style="font-size: 24px; color: var(--card)">SLOWPOST</span></div>
+        </div>
+      </div>
+      <div class="perf" style="position: absolute; right: -14px; top: -26px; width: 92px; transform: rotate(8deg)" aria-hidden="true">
+        <div style="height: 104px; background: var(--blue); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--card)"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z" fill="#E8A93A"></path></svg><span class="tw" style="font-size: 10px">Air mail</span></div>
+      </div>
+      <div id="counter" hidden style="position: absolute; left: 18px; bottom: -24px; display: inline-flex; align-items: center; gap: 10px; background: var(--card); border: 2px solid var(--ink); border-radius: 8px; padding: 10px 16px; box-shadow: 3px 3px 0 var(--ink)">
+        <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(62,138,134,.25)"></span>
+        <span class="tw" style="font-size: 14px"><b id="count" class="display" style="font-size: 20px; letter-spacing: 0"></b> <span id="count-word">letters in the mail now</span></span>
+      </div>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="display: flex; flex-direction: column; gap: 4px"><span style="height: 10px; background: var(--mustard)"></span><span style="height: 10px; background: var(--orange)"></span><span style="height: 10px; background: var(--red)"></span></div>
+
+  <section class="wrap" style="padding-top: 80px; display: flex; flex-direction: column; gap: 36px">
+    <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; justify-content: space-between">
+      <h2 class="h2">Three steps. Take your time.</h2>
+      <span class="tw" style="font-size: 15px">Postage paid · No rush</span>
+    </div>
+    <ol class="steps3">
+      <li class="perf" style="transform: rotate(-1.5deg)"><div style="background: var(--mustard)"><span class="tw" style="font-size: 14px">Step 1 · 1¢</span><span class="display" style="font-size: 32px">Pick</span><span style="font-size: 16px">Who it's for, and a letter, postcard or card. We set out the stationery.</span></div></li>
+      <li class="perf" style="transform: rotate(1deg)"><div style="background: var(--sky)"><span class="tw" style="font-size: 14px">Step 2 · 2¢</span><span class="display" style="font-size: 32px">Write</span><span style="font-size: 16px">Just you and the paper. Stickers, a stamp, a photo or a voice note if you like.</span></div></li>
+      <li class="perf" style="transform: rotate(-.5deg)"><div style="background: var(--peach)"><span class="tw" style="font-size: 14px">Step 3 · 3¢</span><span class="display" style="font-size: 32px">Seal &amp; send</span><span style="font-size: 16px">Press the wax seal. It arrives at 8am their time, on the day you choose.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="wrap" style="padding-top: 8px; display: flex; flex-direction: column; gap: 30px">
+    <h2 class="h2">What will you send?</h2>
+    <div class="send3">
+      <a href="write.html?kind=letter" class="airmail" style="display: block; padding: 8px; border-radius: 8px; text-decoration: none; box-shadow: 4px 4px 0 var(--ink)">
+        <span style="display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 3px; background: var(--card); min-height: 190px; position: relative">
+          <span class="tw" style="font-size: 13px; color: var(--blue)">Par avion</span>
+          <span class="display" style="font-size: 30px">A letter</span>
+          <span style="font-size: 15px">For saying the long thing properly.</span>
+          <span aria-hidden="true" style="position: absolute; right: 18px; top: 16px; width: 46px; height: 56px; background: var(--red); outline: 3px dotted var(--card); outline-offset: -5px"></span>
+        </span>
+      </a>
+      <a href="write.html?kind=postcard" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 206px; padding: 22px; border: 2px solid var(--ink); border-radius: 8px; text-decoration: none; box-shadow: 4px 4px 0 var(--ink); background: linear-gradient(#BFDDD8 0 56%, #E8A93A 56% 68%, #E07B39 68% 80%, #C2412D 80%)">
+        <span><span class="tw" style="display: block; font-size: 13px">Greetings from</span><span class="display" style="font-size: 40px; color: var(--card); text-shadow: 3px 3px 0 var(--ink)">Anywhere</span></span>
+        <span class="display" style="align-self: flex-start; background: var(--card); padding: 6px 12px; border-radius: 6px; font-size: 22px">A postcard</span>
+      </a>
+      <a href="write.html?kind=card" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 206px; padding: 22px; border: 2px solid var(--ink); border-radius: 8px; text-decoration: none; box-shadow: 4px 4px 0 var(--ink); background: var(--red) radial-gradient(rgba(250,241,220,.18) 1.5px, transparent 1.7px) 0 0/10px 10px">
+        <span class="display" style="font-size: 40px; line-height: 1; color: var(--gold); text-shadow: 3px 3px 0 var(--ink); transform: rotate(-3deg); transform-origin: left">Happy<br>birthday!</span>
+        <span class="display" style="align-self: flex-start; background: var(--card); color: var(--ink); padding: 6px 12px; border-radius: 6px; font-size: 22px">A card</span>
+      </a>
+    </div>
+  </section>
+
+  <section style="background: linear-gradient(rgba(243,228,196,0), #2B5A8A 140px, #2B5A8A calc(100% - 140px), rgba(243,228,196,0)); color: var(--card)">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 150px 32px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+      <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+        <span class="badge" style="align-self: flex-start; background: var(--mustard); color: var(--ink)">Collect them all</span>
+        <h2 class="h2" style="color: var(--card)">Every letter earns a stamp.</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; max-width: 440px">Your first letter, a slow boat, a time capsule, five letters sent. Twelve stamps to collect in your mailbox's album.</p>
+        <a href="mailbox.html#album" style="color: var(--gold); font-weight: 800">See your album →</a>
+      </div>
+      <div style="flex: 1 1 380px; min-width: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px" aria-hidden="true">
+        <div class="perf" style="transform: rotate(-4deg)"><div style="aspect-ratio: .8; background: var(--red); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z" fill="#FAF1DC"></path></svg></div></div>
+        <div class="perf" style="transform: rotate(3deg)"><div style="aspect-ratio: .8; background: var(--mustard); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M2.5 13.5l19-8-6.5 15-3.2-6.3z" fill="#2B5A8A"></path></svg></div></div>
+        <div style="aspect-ratio: .8; border: 2px dashed rgba(250,241,220,.5); display: flex; align-items: center; justify-content: center" class="display"><span style="font-size: 28px; color: rgba(250,241,220,.5)">?</span></div>
+        <div style="aspect-ratio: .8; border: 2px dashed rgba(250,241,220,.5); display: flex; align-items: center; justify-content: center" class="display"><span style="font-size: 28px; color: rgba(250,241,220,.5)">?</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="inner">
+    <img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 52px; width: auto">
+    <p class="hand" style="margin: 0; font-size: 24px; color: var(--red)">write it slowly. send it with love.</p>
+    <span class="tw" style="font-size: 13px; opacity: .8">Follow the mail</span>
+    <nav aria-label="Slowpost on social media">
+      <a href="https://www.instagram.com/slowpostletter/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61595393611281" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.pinterest.com/slowpost/" target="_blank" rel="noopener">Pinterest</a>
+      <a href="https://x.com/slowpostletter" target="_blank" rel="noopener">X</a>
+    </nav>
+    <span class="copy">© 2026 Slowpost · slowpost.world · Posted with care</span>
   </div>
+  <div class="airmail airmail-bar"></div>
+</footer>
 
-  <section id="who" style="background: linear-gradient(#F4E6C8, #FBF3E2 120px, #FBF3E2 calc(100% - 120px), #F4E6C8)">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 80px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px">
-      <div style="display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: flex-end; justify-content: space-between">
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <span class="px" style="color: #B5461A">Choose your player 2</span>
-          <h2 class="h2">Who's it for?</h2>
-        </div>
-        <p style="margin: 0; font-size: 17px; max-width: 420px; line-height: 1.6">Pick a person and we'll lay out stationery to match. Then make it yours.</p>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px">
-        <a href="letter.html" class="card" style="text-decoration: none; overflow: hidden; display: flex; flex-direction: column; background: #FFF8EA">
-          <span style="position: relative; height: 140px; background: repeating-linear-gradient(#FCEFC8 0 19px, #F0DFA8 19px 20px); display: block">
-            <span style="position: absolute; right: 16px; top: 14px; width: 38px; height: 46px; background: #EDA35E; border: 2px dashed rgba(74,52,38,0.6)"></span>
-            <span class="stk" style="position: absolute; left: 20px; bottom: 16px; width: 40px; height: 40px"><svg viewBox="0 0 24 24" style="width: 100%; height: 100%" aria-hidden="true"><polygon points="12,2.5 14.9,8.6 21.5,9.3 16.5,13.8 18,20.5 12,17 6,20.5 7.5,13.8 2.5,9.3 9.1,8.6" fill="#F3C766"></polygon></svg></span>
-          </span>
-          <span style="padding: 18px 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Righteous, sans-serif; font-size: 23px">Best friends</span><span style="font-size: 15px; line-height: 1.5">Inside jokes, polaroids and way too many stickers.</span></span>
-        </a>
-        <a href="letter.html" class="card" style="text-decoration: none; overflow: hidden; display: flex; flex-direction: column; background: #FFF8EA">
-          <span style="position: relative; height: 140px; background: repeating-linear-gradient(#FBE3D8 0 19px, #F2CDBD 19px 20px); display: block">
-            <span style="position: absolute; right: 16px; top: 14px; width: 38px; height: 46px; background: #E07F55; border: 2px dashed rgba(74,52,38,0.6)"></span>
-            <span class="stk" style="position: absolute; left: 20px; bottom: 16px; width: 42px; height: 42px"><svg viewBox="0 0 24 24" style="width: 100%; height: 100%" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z" fill="#E07F55"></path></svg></span>
-          </span>
-          <span style="padding: 18px 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Righteous, sans-serif; font-size: 23px">Lovers</span><span style="font-size: 15px; line-height: 1.5">Blush paper, a wax seal and your song tucked inside.</span></span>
-        </a>
-        <a href="letter.html" class="card" style="text-decoration: none; overflow: hidden; display: flex; flex-direction: column; background: #FFF8EA">
-          <span style="position: relative; height: 140px; background: repeating-linear-gradient(#FFF8EA 0 19px, #EADCC2 19px 20px); display: block">
-            <span style="position: absolute; right: 16px; top: 14px; width: 38px; height: 46px; background: #9FCFCB; border: 2px dashed rgba(74,52,38,0.6)"></span>
-            <span style="position: absolute; left: 20px; bottom: 14px; width: 68px; height: 60px; background: #FFFFFF; padding: 4px 4px 12px; box-sizing: border-box; box-shadow: 0 2px 6px rgba(74,52,38,0.2)"><span style="display: block; height: 100%; background: #EED3A6"></span></span>
-          </span>
-          <span style="padding: 18px 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Righteous, sans-serif; font-size: 23px">Parents</span><span style="font-size: 15px; line-height: 1.5">The call you keep meaning to make, written down.</span></span>
-        </a>
-        <a href="letter.html" class="card" style="text-decoration: none; overflow: hidden; display: flex; flex-direction: column; background: #FFF8EA">
-          <span style="position: relative; height: 140px; background: #EAD6B0; display: block">
-            <span style="position: absolute; right: 16px; top: 14px; width: 38px; height: 46px; background: #6B4A34; border: 2px dashed rgba(255,248,234,0.7)"></span>
-            <span style="position: absolute; left: 20px; bottom: 18px; width: 84px; height: 50px; background: #4E9A98; border-radius: 6px; display: flex; align-items: center; justify-content: space-around"><span style="width: 16px; height: 16px; border-radius: 50%; background: #FFF8EA"></span><span style="width: 16px; height: 16px; border-radius: 50%; background: #FFF8EA"></span></span>
-          </span>
-          <span style="padding: 18px 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Righteous, sans-serif; font-size: 23px">Grandparents</span><span style="font-size: 15px; line-height: 1.5">Big print, a voice note and a photo for the fridge.</span></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="live" style="background: linear-gradient(#F4E6C8, #DDEEEA 160px, #DDEEEA calc(100% - 160px), #F4E6C8)">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 96px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
-      <div style="display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: baseline; justify-content: space-between">
-        <h2 class="h2">Right now on Slowpost</h2>
-        <span class="px" style="color: #23595C">● Live from the mail room</span>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-        <div class="card" style="background: #FFFBF2; padding: 18px; display: flex; gap: 14px; align-items: flex-start">
-          <span style="flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; background: #F6C2AE; display: flex; align-items: center; justify-content: center; font-weight: 900">A</span>
-          <span style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5"><span><b>Ana</b> is covering a birthday card for her mom in cherry stickers.</span><span class="px" style="color: #B5461A">+11 stickers</span></span>
-        </div>
-        <div class="card" style="background: #FFFBF2; padding: 18px; display: flex; gap: 14px; align-items: flex-start">
-          <span style="flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; background: #BFE0DC; display: flex; align-items: center; justify-content: center; font-weight: 900">J</span>
-          <span style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5"><span><b>Grandpa Joe</b> opened his first voice note and played it four times.</span><span class="px" style="color: #B5461A">Achievement: first listen</span></span>
-        </div>
-        <div class="card" style="background: #FFFBF2; padding: 18px; display: flex; gap: 14px; align-items: flex-start">
-          <span style="flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; background: #F3D58A; display: flex; align-items: center; justify-content: center; font-weight: 900">S</span>
-          <span style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5"><span><b>Sora</b> and <b>Mira</b> just traded their 12th pen-pal letter, Osaka to Brooklyn.</span><span class="px" style="color: #B5461A">Streak: 12 letters</span></span>
-        </div>
-        <div class="card" style="background: #FFFBF2; padding: 18px; display: flex; gap: 14px; align-items: flex-start">
-          <span style="flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; background: #F2B98A; display: flex; align-items: center; justify-content: center; font-weight: 900">L</span>
-          <span style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5"><span><b>Leo</b> sent a postcard from Mexico City with the mixtape stamp.</span><span class="px" style="color: #B5461A">Slow boat · 12 days</span></span>
-        </div>
-        <div class="card" style="background: #FFFBF2; padding: 18px; display: flex; gap: 14px; align-items: flex-start">
-          <span style="flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; background: #C6DBB8; display: flex; align-items: center; justify-content: center; font-weight: 900">K</span>
-          <span style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5"><span><b>Kai</b> sealed a time-capsule letter to open on their wedding day.</span><span class="px" style="color: #B5461A">Unlocks June 2027</span></span>
-        </div>
-        <div class="card" style="background: #FFFBF2; padding: 18px; display: flex; gap: 14px; align-items: flex-start">
-          <span style="flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; background: #F0C9A0; display: flex; align-items: center; justify-content: center; font-weight: 900">?</span>
-          <span style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5"><span>Someone in <b>Seoul</b> pinned a note: “Nobody has ever been sad to get a letter.”</span><span class="px" style="color: #B5461A">Saved 214×</span></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="album" style="max-width: 1280px; margin: 0 auto; padding: 80px 32px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
-    <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-      <span class="px" style="color: #B5461A">Collect them all</span>
-      <h2 class="h2">Your stamp album</h2>
-      <p style="margin: 0; font-size: 17px; line-height: 1.6; max-width: 440px">Every letter you send earns a stamp. Write to someone new, keep a pen-pal streak or send one by slow boat to unlock rare ones.</p>
-      <div style="display: flex; flex-direction: column; gap: 8px; max-width: 420px">
-        <div style="display: flex; justify-content: space-between" class="px"><span>Album</span><span>9 / 24</span></div>
-        <div style="height: 18px; border: 2px solid #4A3426; border-radius: 999px; background: #FFF8EA; overflow: hidden"><div style="width: 37%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #F3C766, #EDA35E)"></div></div>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <span class="px" style="background: #F8E5B4; padding: 6px 10px; border-radius: 6px">★ First letter</span>
-        <span class="px" style="background: #D7ECE8; padding: 6px 10px; border-radius: 6px">★ Pen pal ×3</span>
-        <span class="px" style="border: 2px dashed rgba(74,52,38,0.4); padding: 4px 8px; border-radius: 6px; color: rgba(74,52,38,0.7)">? Slow boat</span>
-      </div>
-    </div>
-    <div style="flex: 1 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px">
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FFF8EA; border: 2px dashed rgba(74,52,38,0.6)"><div style="height: 100%; background: #E07F55; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="38" height="38" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z" fill="#FFF8EA"></path></svg></div></div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FFF8EA; border: 2px dashed rgba(74,52,38,0.6)"><div style="height: 100%; background: #F3C766; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="38" height="38" aria-hidden="true"><circle cx="12" cy="12" r="5.5" fill="#C8693F"></circle><circle cx="12" cy="3" r="1.8" fill="#C8693F"></circle><circle cx="12" cy="21" r="1.8" fill="#C8693F"></circle><circle cx="3" cy="12" r="1.8" fill="#C8693F"></circle><circle cx="21" cy="12" r="1.8" fill="#C8693F"></circle></svg></div></div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FFF8EA; border: 2px dashed rgba(74,52,38,0.6)"><div style="height: 100%; background: #6B4A34; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="38" height="38" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2" fill="#EDA35E"></rect><circle cx="8.5" cy="11.5" r="2.3" fill="#6B4A34"></circle><circle cx="15.5" cy="11.5" r="2.3" fill="#6B4A34"></circle></svg></div></div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FFF8EA; border: 2px dashed rgba(74,52,38,0.6)"><div style="height: 100%; background: #4E9A98; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="38" height="38" aria-hidden="true"><path d="M19 15.5A8 8 0 1 1 9 4.5a6.5 6.5 0 0 0 10 11z" fill="#F3C766"></path></svg></div></div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FFF8EA; border: 2px dashed rgba(74,52,38,0.6)"><div style="height: 100%; background: #BFE0DC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="38" height="38" aria-hidden="true"><circle cx="12" cy="6.8" r="4.2" fill="#C8693F"></circle><circle cx="17.2" cy="12" r="4.2" fill="#C8693F"></circle><circle cx="12" cy="17.2" r="4.2" fill="#C8693F"></circle><circle cx="6.8" cy="12" r="4.2" fill="#C8693F"></circle><circle cx="12" cy="12" r="3" fill="#F3C766"></circle></svg></div></div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FBF3E2; border: 2px dashed rgba(74,52,38,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center">
-        <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><polygon points="12,2.5 14.9,8.6 21.5,9.3 16.5,13.8 18,20.5 12,17 6,20.5 7.5,13.8 2.5,9.3 9.1,8.6" fill="rgba(74,52,38,0.18)"></polygon></svg>
-        <span class="px" style="font-size: 10px; color: rgba(74,52,38,0.75)">Locked</span>
-        <span style="font-size: 12px; line-height: 1.3; color: #6B4A34">Send 5 letters</span>
-      </div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FBF3E2; border: 2px dashed rgba(74,52,38,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center">
-        <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M3 15h18l-2.5 4h-13zM12 3v11M12 4l6 8h-6" fill="rgba(74,52,38,0.18)"></path></svg>
-        <span class="px" style="font-size: 10px; color: rgba(74,52,38,0.75)">Locked</span>
-        <span style="font-size: 12px; line-height: 1.3; color: #6B4A34">Send by slow boat</span>
-      </div>
-      <div style="aspect-ratio: 0.82; padding: 6px; background: #FBF3E2; border: 2px dashed rgba(74,52,38,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center">
-        <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="rgba(74,52,38,0.18)"></circle><rect x="10" y="2" width="4" height="4" rx="1" fill="rgba(74,52,38,0.18)"></rect></svg>
-        <span class="px" style="font-size: 10px; color: rgba(74,52,38,0.75)">Locked</span>
-        <span style="font-size: 12px; line-height: 1.3; color: #6B4A34">Seal a time capsule</span>
-      </div>
-    </div>
-  </section>
-
-  <section style="background: linear-gradient(#F4E6C8, #F8E5B4 160px, #F8E5B4 calc(100% - 160px), #F4E6C8)">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 96px 32px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
-      <div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-        <span style="font-family: 'Gaegu', cursive; font-size: 30px; font-weight: 700; color: #B5461A">oh yes,</span>
-        <h2 style="margin: 0; font-family: Righteous, sans-serif; font-weight: 400; font-size: clamp(42px, 5.2vw, 70px); line-height: 1; text-shadow: 3px 3px 0 rgba(237,163,94,0.55)">the good old days.</h2>
-        <p style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 500px">Remember waiting for the mail? Before the algorithm, before read receipts, before half our lives went into a screen. Slowpost brings back the waiting, and the joy when it arrives.</p>
-      </div>
-      <div style="flex: 1 1 280px; display: flex; justify-content: center; padding: 30px 0">
-        <div role="img" aria-label="A blue retro cell phone showing one new letter" style="position: relative; width: 160px; height: 340px; background: #5B93D6; border: 2px solid #4A3426; border-radius: 40px 40px 52px 52px; transform: rotate(8deg); padding: 26px 17px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; box-shadow: 5px 5px 0 rgba(74,52,38,0.85)">
-          <div style="position: absolute; right: 26px; top: -50px; width: 20px; height: 56px; background: #5B93D6; border: 2px solid #4A3426; border-bottom: 0; border-radius: 10px 10px 0 0"></div>
-          <div style="background: #DCEAF7; border-radius: 8px; padding: 12px 10px; font-family: Silkscreen, monospace; font-size: 11px; line-height: 1.6; color: #1D3D66">1 new letter<br>from: dad<br>arrives: mon</div>
-          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px" aria-hidden="true">
-            <span style="height: 20px; border-radius: 10px; background: #3F76BC"></span><span style="height: 20px; border-radius: 10px; background: #3F76BC"></span><span style="height: 20px; border-radius: 10px; background: #3F76BC"></span>
-            <span style="height: 20px; border-radius: 10px; background: #3F76BC"></span><span style="height: 20px; border-radius: 10px; background: #3F76BC"></span><span style="height: 20px; border-radius: 10px; background: #3F76BC"></span>
-            <span style="height: 20px; border-radius: 10px; background: #3F76BC"></span><span style="height: 20px; border-radius: 10px; background: #3F76BC"></span><span style="height: 20px; border-radius: 10px; background: #3F76BC"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="mailbag" style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 96px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
-    <h2 class="h2">What's in the mailbag</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px">
-      <a href="letter.html" class="card" style="text-decoration: none; background: #FFF8EA; padding: 22px; display: flex; flex-direction: column; gap: 10px"><span style="width: 44px; height: 8px; border-radius: 4px; background: #F3C766"></span><span style="font-family: Righteous, sans-serif; font-size: 25px">Letters</span><span style="font-size: 15px; line-height: 1.55">Paper, stickers, stamps, ink and envelopes, all yours to choose.</span><span style="font-weight: 900; font-size: 15px">Write one →</span></a>
-      <a href="postcards.html" class="card" style="text-decoration: none; background: #FFF8EA; padding: 22px; display: flex; flex-direction: column; gap: 10px"><span style="width: 44px; height: 8px; border-radius: 4px; background: #9FCFCB"></span><span style="font-family: Righteous, sans-serif; font-size: 25px">Postcards &amp; Cards</span><span style="font-size: 15px; line-height: 1.55">Travel postcards, and cards for birthdays, weddings and more.</span><span style="font-weight: 900; font-size: 15px">Pick a card →</span></a>
-      <a href="penpals.html" class="card" style="text-decoration: none; background: #FFF8EA; padding: 22px; display: flex; flex-direction: column; gap: 10px"><span style="width: 44px; height: 8px; border-radius: 4px; background: #EDA35E"></span><span style="font-family: Righteous, sans-serif; font-size: 25px">Pen Pals</span><span style="font-size: 15px; line-height: 1.55">Get matched with someone new, and a real letter every day.</span><span style="font-weight: 900; font-size: 15px">Find a pen pal →</span></a>
-      <a href="community.html" class="card" style="text-decoration: none; background: #FFF8EA; padding: 22px; display: flex; flex-direction: column; gap: 10px"><span style="width: 44px; height: 8px; border-radius: 4px; background: #E07F55"></span><span style="font-family: Righteous, sans-serif; font-size: 25px">Community Notes</span><span style="font-size: 15px; line-height: 1.55">Pin a note, save the good ones, share them anywhere.</span><span style="font-weight: 900; font-size: 15px">Read the board →</span></a>
-    </div>
-  </section>
-
-  <footer style="background: linear-gradient(#F4E6C8, #FFF8EA 80px)">
-    <div aria-hidden="true" style="max-width: 1216px; margin: 0 auto; display: flex; gap: 6px; padding: 0 32px; box-sizing: content-box">
-      <span style="flex: 1; height: 6px; border-radius: 3px; background: #F3C766"></span><span style="flex: 1; height: 6px; border-radius: 3px; background: #EDA35E"></span><span style="flex: 1; height: 6px; border-radius: 3px; background: #E07F55"></span><span style="flex: 1; height: 6px; border-radius: 3px; background: #9FCFCB"></span>
-    </div>
-    <div style="max-width: 1280px; margin: 0 auto; padding: 32px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between">
-      <img src="assets/slowpost-logo.png" alt="Slowpost" style="height: 46px; width: auto; display: block">
-      <div style="display: flex; flex-wrap: wrap; gap: 10px">
-        <a href="#" class="share">Instagram</a><a href="#" class="share">TikTok</a><a href="#" class="share">X</a><a href="#" class="share">Facebook</a>
-      </div>
-      <span style="font-family: 'Space Mono', monospace; font-size: 13px">© 2026 Slowpost · Posted with care</span>
-    </div>
-  </footer>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="site.js"></script>
+<script>
+(async function () {
+  var SP = window.Slowpost;
+  if (!SP || !SP.configured) return;
+  try {
+    var r = await SP.sb.rpc('letters_in_the_mail');
+    if (r.error || typeof r.data !== 'number') return;
+    document.getElementById('count').textContent = r.data;
+    document.getElementById('count-word').textContent = r.data === 1 ? 'letter in the mail now' : 'letters in the mail now';
+    document.getElementById('counter').hidden = false;
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>

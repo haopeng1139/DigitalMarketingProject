@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slowpost · Write</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&amp;family=Nunito:wght@400;600;800;900&amp;family=Silkscreen&amp;family=Special+Elite&amp;family=Gaegu:wght@400;700&amp;family=Homemade+Apple&amp;family=DM+Serif+Display&amp;family=Space+Mono&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/v3.css">
+<style>
+.who { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+.env-tile { display: flex; flex-direction: column; gap: 10px; padding: 8px; border-radius: 8px; border: 2px solid transparent; background: transparent; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.env-tile .face { position: relative; display: block; height: 100px; border-radius: 4px; border: 2px solid var(--ink); overflow: hidden; }
+.env-tile .flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; clip-path: polygon(0 0, 100% 0, 50% 100%); background: rgba(62,42,30,.12); }
+.env-tile .name { font-family: Righteous, sans-serif; font-size: 20px; padding: 0 4px; }
+.env-tile[aria-pressed="true"] { border-color: var(--ink); background: var(--card); box-shadow: 4px 4px 0 var(--ink); }
+.kinds { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.kind { display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 0 18px; border-radius: 8px; border: 2px dashed rgba(62,42,30,.45); background: var(--card); font: 900 18px Nunito, sans-serif; color: var(--ink); cursor: pointer; }
+.kind[aria-pressed="true"] { border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); background: #FBE1D3; }
+.kind .mini { width: 34px; height: 42px; flex: 0 0 auto; outline: 3px dotted var(--card); outline-offset: -5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { min-height: 44px; padding: 0 16px; border: 2px solid var(--ink); border-radius: 999px; background: var(--card); font: 800 15px Nunito, sans-serif; color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--card); }
+.bar { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 2px dashed rgba(62,42,30,.35); }
+
+.desk { display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start; justify-content: center; }
+.tools { flex: 0 0 auto; display: flex; flex-direction: column; gap: 4px; align-items: center; padding: 10px 6px; border-radius: 10px; border: 2px dashed rgba(62,42,30,.35); }
+@media (max-width: 760px) { .tools { flex-direction: row; flex-wrap: wrap; width: 100%; justify-content: center; } }
+.tool { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 76px; padding: 10px 0; border: 0; background: transparent; font: 400 12px 'Special Elite', monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--ink); cursor: pointer; border-radius: 8px; }
+.tool .dot { width: 50px; height: 50px; border-radius: 8px; border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; background: var(--card); }
+.tool[aria-pressed="true"] { background: var(--card); box-shadow: 3px 3px 0 var(--ink); outline: 2px solid var(--ink); }
+.drawer { flex: 0 1 270px; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 8px; background: var(--card); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.opt-grid { display: grid; gap: 8px; }
+.opt { height: 52px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; border: 2px dashed rgba(62,42,30,.3); background: var(--card); }
+.opt[aria-pressed="true"] { border: 3px solid var(--red); background: #FBE1D3; }
+.paper-wrap { flex: 1 1 480px; max-width: 620px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.sheet { position: relative; min-height: 560px; padding: 50px 40px 56px 70px; border-radius: 2px; line-height: 36px; }
+@media (max-width: 600px) { .sheet { padding: 40px 18px 48px 46px; } .sheet .margin { left: 34px !important; } }
+.ink { display: block; width: 100%; background: transparent; border: 0; border-bottom: 1px dashed rgba(62,42,30,.25); padding: 0; margin: 0; font: inherit; color: inherit; line-height: 36px; }
+.ink::placeholder { color: currentColor; opacity: .45; }
+textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom: 0; }
+.tuck { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 16px; border: 2px dashed rgba(62,42,30,.5); border-radius: 6px; font: 400 15px 'Special Elite', monospace; text-transform: uppercase; letter-spacing: .04em; background: var(--card); cursor: pointer; }
+.tuck:focus-within { outline: 3px solid var(--teal); outline-offset: 2px; }
+.files { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.files li { display: inline-flex; align-items: center; gap: 6px; padding: 4px 4px 4px 12px; background: var(--card); border: 1px solid rgba(62,42,30,.3); border-radius: 999px; font-size: 14px; max-width: 100%; }
+.files li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+.files button { min-width: 36px; min-height: 36px; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-weight: 900; }
+
+.sealrow { display: flex; flex-wrap: wrap; gap: 44px; align-items: flex-start; }
+.speeds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 520px) { .speeds { grid-template-columns: 1fr; } }
+.speed { display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 6px; border: 2px dashed rgba(62,42,30,.45); background: var(--card); cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.speed[aria-pressed="true"] { border: 2px solid var(--ink); background: #FBE1D3; box-shadow: 3px 3px 0 var(--ink); }
+.arrive { margin: 0; padding: 12px 14px; border: 2px dashed var(--ink); border-radius: 6px; background: var(--sky); font: 400 14px/1.5 'Special Elite', monospace; letter-spacing: .04em; text-transform: uppercase; }
+.wax { position: absolute; left: 50%; top: 150px; transform: translateX(-50%); width: 112px; height: 112px; border-radius: 50%; border: 0; background: #A9432A; box-shadow: inset 0 0 0 8px rgba(255,255,255,.16), 0 6px 0 #6E2A1A, 0 12px 18px rgba(62,42,30,.3); color: var(--card); font: 900 15px/1.2 Nunito, sans-serif; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.wax:hover { transform: translateX(-50%) scale(1.04); }
+.wax:active { transform: translateX(-50%) translateY(4px); box-shadow: inset 0 0 0 8px rgba(255,255,255,.16), 0 2px 0 #6E2A1A; }
+.wax:disabled { cursor: progress; opacity: .85; }
+</style>
+</head>
+<body>
+<div class="airmail airmail-bar"></div>
+<header class="top">
+  <a class="logo" href="index.html" aria-label="Slowpost home"><img src="assets/slowpost-logo.png" alt="Slowpost"></a>
+  <nav class="nav" aria-label="Main">
+    <a href="write.html" aria-current="page">Write</a>
+    <a href="mailbox.html">Mailbox</a>
+    <a href="community.html">Community</a>
+  </nav>
+  <a class="ticket" href="mailbox.html">Your mailbox</a>
+</header>
+
+<main class="wrap" style="display: flex; flex-direction: column; gap: 30px">
+  <ol class="steps" aria-label="Steps">
+    <li id="st-1">1 · Pick</li>
+    <li id="st-2">2 · Write</li>
+    <li id="st-3">3 · Seal &amp; send</li>
+  </ol>
+
+  <!-- Step 1 -->
+  <section id="step-pick" style="display: flex; flex-direction: column; gap: 30px">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 class="label" style="margin: 0">What are you sending?</h2>
+      <div class="kinds" id="kinds" role="group" aria-label="What you're sending"></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <h1 class="h1" id="pick-title">Who's it for?</h1>
+      <div class="who" id="who" role="group" aria-label="Who it's for"></div>
+      <div id="place-row" class="field" hidden style="max-width: 360px">
+        <label for="place" class="label">Greetings from</label>
+        <input id="place" class="input" type="text" maxlength="40" placeholder="Lisbon">
+      </div>
+      <div id="occ-row" hidden style="display: flex; flex-direction: column; gap: 10px">
+        <span class="label">The occasion</span>
+        <div class="chips" id="occasions" role="group" aria-label="Occasion"></div>
+      </div>
+    </div>
+    <div class="bar">
+      <span class="hand" id="pick-hint" style="font-size: 23px; color: var(--red)"></span>
+      <button type="button" class="btn-stamp" data-go="2">Start writing →</button>
+    </div>
+  </section>
+
+  <!-- Step 2 -->
+  <section id="step-write" hidden style="display: flex; flex-direction: column; gap: 24px">
+    <div class="desk">
+      <div class="tools" role="toolbar" aria-label="Decorate">
+        <span class="tw" style="font-size: 12px; padding: 4px 6px">Decorate</span>
+        <button type="button" class="tool" data-tab="paper"><span class="dot" id="tool-paper"></span>Paper</button>
+        <button type="button" class="tool" data-tab="stickers"><span class="dot"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z" fill="#C2412D"></path></svg></span>Stickers</button>
+        <button type="button" class="tool" data-tab="stamp"><span class="dot" id="tool-stamp"></span>Stamp</button>
+        <button type="button" class="tool" data-tab="more"><span class="dot" style="font: 900 18px Nunito, sans-serif">···</span>More</button>
+      </div>
+      <div class="drawer" id="drawer"></div>
+      <div class="paper-wrap">
+        <div class="airmail" style="padding: 8px; border-radius: 6px; box-shadow: 5px 5px 0 var(--ink)">
+          <div class="sheet" id="sheet">
+            <div class="margin" style="position: absolute; top: 0; bottom: 0; left: 50px; width: 2px; background: rgba(194,65,45,.45)"></div>
+            <div id="sheet-head"></div>
+            <p id="dateline" style="margin: 0; text-align: right"></p>
+            <label for="greeting" class="vh">Greeting</label>
+            <input id="greeting" class="ink" type="text" maxlength="200" style="margin-top: 36px">
+            <label for="body" class="vh">Your letter</label>
+            <textarea id="body" class="ink" maxlength="20000"></textarea>
+            <div style="margin-top: 36px; margin-left: auto; width: min(260px, 100%)">
+              <label for="signoff" class="vh">Sign-off</label>
+              <input id="signoff" class="ink" type="text" maxlength="200" style="text-align: right">
+              <label for="from" class="vh">Your name</label>
+              <input id="from" class="ink" type="text" maxlength="60" placeholder="Your name" autocomplete="given-name" style="text-align: right">
+            </div>
+            <div id="placed"></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+          <span class="tw" style="font-size: 13px; margin-right: 4px">Tuck in:</span>
+          <label class="tuck">+ Photo<input class="vh" type="file" accept="image/*" data-kind="photo" multiple></label>
+          <label class="tuck">+ Voice note<input class="vh" type="file" accept="audio/*" data-kind="voice"></label>
+          <label class="tuck">+ Song<input class="vh" type="file" accept="audio/*" data-kind="song"></label>
+          <label class="tuck">+ Video<input class="vh" type="file" accept="video/*" data-kind="video"></label>
+        </div>
+        <ul class="files" id="files"></ul>
+      </div>
+    </div>
+    <div class="bar">
+      <button type="button" class="link" data-go="1">← Back</button>
+      <span class="tw" id="saved" style="font-size: 13px">Draft kept on this browser</span>
+      <button type="button" class="btn-stamp" data-go="3">Next: seal &amp; send →</button>
+    </div>
+  </section>
+
+  <!-- Step 3 -->
+  <section id="step-seal" hidden style="display: flex; flex-direction: column; gap: 24px">
+    <div class="sealrow">
+      <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; padding-top: 6px">
+        <div style="position: relative; width: 100%; max-width: 440px; height: 340px">
+          <div id="peek" aria-hidden="true" style="position: absolute; left: 12%; right: 12%; top: 0; height: 170px; border: 2px solid var(--ink); border-radius: 3px; transform: rotate(-2deg); transition: transform .5s ease, top .5s ease"></div>
+          <div class="airmail" style="position: absolute; left: 0; right: 0; bottom: 0; height: 250px; padding: 9px; border-radius: 8px; box-shadow: 6px 6px 0 var(--ink)">
+            <div id="env-face" style="position: relative; height: 100%; border-radius: 3px; overflow: hidden">
+              <div style="position: absolute; inset: 0; background: rgba(62,42,30,.08); clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%)"></div>
+              <div id="env-stamp" style="position: absolute; right: 12px; top: 10px; width: 54px; height: 64px; padding: 5px; background: radial-gradient(circle at 5px 5px, transparent 3px, #FAF1DC 3.5px) -5px -5px/10px 10px"></div>
+              <div class="tw" style="position: absolute; left: 14px; bottom: 12px; font-size: 14px; line-height: 1.5">To: <span id="env-to">…</span><br><span id="env-where"></span></div>
+              <div id="postmark" hidden></div>
+              <div id="seal-done" class="thunk" hidden aria-hidden="true" style="position: absolute; left: 50%; top: 56%; width: 74px; height: 74px; margin: -37px 0 0 -37px; border-radius: 50%; box-shadow: inset 0 0 0 7px rgba(255,255,255,.16)"></div>
+            </div>
+          </div>
+          <button type="button" class="wax" id="wax">Press to<br>seal</button>
+        </div>
+        <span class="hand" id="wax-hint" style="font-size: 23px; color: var(--red)">press the wax. it folds, stamps and sends.</span>
+        <span id="stamp-earned" class="badge dark pop" hidden style="font-size: 13px; padding: 8px 12px"></span>
+      </div>
+
+      <form id="seal-form" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px" novalidate>
+        <div class="field"><label for="to" class="label">Who is it for?</label><input id="to" class="input" type="text" maxlength="80" required></div>
+        <div class="field">
+          <label for="tz" class="label">Where do they live?</label>
+          <select id="tz" class="input"></select>
+          <span class="hint">So "8am" means 8am when they wake up.</span>
+        </div>
+        <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+          <legend class="label" style="margin-bottom: 10px">When should it arrive?</legend>
+          <div class="speeds" id="speeds"></div>
+          <button type="button" class="link" id="capsule-toggle" style="align-self: flex-start">Or seal it as a time capsule for a date you pick</button>
+          <div id="capsule-row" class="field" hidden style="max-width: 260px"><label for="open-on" class="label">Opens on</label><input id="open-on" class="input" type="date"></div>
+        </fieldset>
+        <div class="field"><label for="email" class="label">Their email (optional)</label><input id="email" class="input" type="email" maxlength="200" placeholder="name@example.com"><span class="hint">We'll email them the link the minute it arrives. You'll also get a link to share yourself.</span></div>
+        <p class="arrive" id="arrive" aria-live="polite"></p>
+        <p id="seal-err" class="msg err" hidden role="alert"></p>
+        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+          <button type="button" class="link" data-go="2">← Back to the letter</button>
+          <span id="status" class="tw" style="font-size: 13px" role="status"></span>
+        </div>
+      </form>
+
+      <div id="sent" hidden style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <h2 class="h1 pop" style="font-size: clamp(36px, 4.6vw, 52px)">Sealed and sent.</h2>
+        <p id="sent-when" style="margin: 0; font-size: 18px; line-height: 1.55"></p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap">
+          <label for="link" class="vh">Sealed link</label>
+          <input id="link" class="input" type="text" readonly style="flex: 1 1 240px; min-width: 0; font-family: 'Special Elite', monospace; font-size: 15px">
+          <button type="button" class="btn-stamp small" id="copy">Copy link</button>
+        </div>
+        <p class="hint" style="margin: 0">Until it arrives, the link shows a sealed envelope and a countdown. It opens by itself at the arrival time.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <a id="sh-wa" class="btn-plain" target="_blank" rel="noopener">WhatsApp</a>
+          <a id="sh-sms" class="btn-plain">Text</a>
+          <a id="sh-mail" class="btn-plain">Email</a>
+        </div>
+        <div style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center"><a href="mailbox.html" class="btn-stamp small">See it in your mailbox</a><a href="write.html" style="font-weight: 800">Write another</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/design.js"></script>
+<script src="js/time.js"></script>
+<script>
+(function () {
+  var D = window.SlowpostDesign, SP = window.Slowpost, T = window.SlowpostTime, esc = SP.esc;
+  function $(id) { return document.getElementById(id); }
+  function toast(m) { var t = document.createElement('div'); t.className = 'sp-toast'; t.setAttribute('role', 'status'); t.textContent = m; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 3400); }
+  var params = new URLSearchParams(location.search);
+
+  var WHO = {
+    friend: { label: 'A friend', paper: 'butter', ink: 'teal', font: 'cute', stamp: 'sun', env: 'butter', seal: 'teal', stickers: ['star', 'smile'], greet: 'Hey you,', sign: 'Your friend,', hint: 'Remember the summer we tried to start a band with one ukulele? I found the set list…' },
+    lover: { label: 'Someone I love', paper: 'blush', ink: 'terracotta', font: 'script', stamp: 'heart', env: 'blush', seal: 'red', stickers: ['heart', 'cherry'], greet: 'My love,', sign: 'Always,', hint: 'This will take a few days to reach you, which feels right. Good things should take a little while…' },
+    parent: { label: 'Mom & Dad', paper: 'cream', ink: 'brown', font: 'type', stamp: 'flower', env: 'kraft', seal: 'red', stickers: ['flower'], greet: 'Dear Mom & Dad,', sign: 'Love,', hint: 'I found your old camera in the closet. The first roll came back and one photo looked exactly like home…' },
+    grand: { label: 'Grandparent', paper: 'kraft', ink: 'brown', font: 'serif', stamp: 'cassette', env: 'cream', seal: 'gold', stickers: ['sun'], greet: 'Dear Grandma,', sign: 'With love,', hint: 'I recorded a voice note so you can hear the new apartment. The radiator sings…' },
+    far: { label: 'Someone far away', paper: 'sky', ink: 'blue', font: 'type', stamp: 'plane', env: 'sky', seal: 'blue', stickers: ['plane', 'moon'], greet: 'Hello from here,', sign: 'Thinking of you,', hint: 'It rained all week, so I developed a roll of film in my bathroom. Tell me what the light looks like where you are…' }
+  };
+  var KINDS = [
+    { id: 'letter', label: 'A letter', mini: 'background: #C2412D' },
+    { id: 'postcard', label: 'A postcard', mini: 'background: linear-gradient(#BFDDD8 0 55%, #E8A93A 55% 72%, #C2412D 72%)' },
+    { id: 'card', label: 'A card', mini: 'background: #E8A93A' }
+  ];
+  var SPEEDS = [{ id: 'morning', name: 'Tomorrow', note: '8am their time' }, { id: 'standard', name: 'In 3 days', note: '8am their time' }, { id: 'slow_boat', name: 'Slow boat', note: '2 weeks · 8am' }];
+
+  // ── State ──
+  var S = { step: 1, kind: 'letter', who: 'parent', occasion: 'birthday', paper: 'cream', ink: 'brown', font: 'type', stamp: 'flower', env: 'kraft', seal: 'red', stickers: ['flower'], tab: 'stickers', pace: 'standard', tz: T.myTz() };
+  var files = [], sending = false;
+  var KEY = 'slowpost:v3draft';
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+  if (saved && saved.S) Object.assign(S, saved.S, { step: 1 });
+  var k = params.get('kind'); if (['letter', 'postcard', 'card'].indexOf(k) >= 0) S.kind = k;
+  if (D.OCCASIONS[params.get('occasion')]) S.occasion = params.get('occasion');
+  $('greeting').value = saved ? saved.greeting || '' : WHO[S.who].greet;
+  $('body').value = saved ? saved.body || '' : '';
+  $('signoff').value = saved ? saved.signoff || '' : WHO[S.who].sign;
+  $('from').value = (saved && saved.from) || SP.savedName();
+  $('to').value = params.get('to') || (saved && saved.to) || '';
+  $('email').value = (saved && saved.email) || '';
+  $('place').value = params.get('place') || (saved && saved.place) || '';
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify({ S: S, greeting: $('greeting').value, body: $('body').value, signoff: $('signoff').value, from: $('from').value, to: $('to').value, email: $('email').value, place: $('place').value })); } catch (e) {}
+  }
+  function design() {
+    var d = { paper: S.paper, ink: S.ink, font: S.font, stamp: S.stamp, env: S.env, seal: S.seal, stickers: S.stickers.slice(), who: S.who };
+    if (S.kind === 'postcard') d.place = $('place').value.trim();
+    if (S.kind === 'card') d.occasion = S.occasion;
+    return d;
+  }
+  function applyWho(id) {
+    var p = WHO[id], old = WHO[S.who];
+    if (!$('greeting').value || $('greeting').value === old.greet) $('greeting').value = p.greet;
+    if (!$('signoff').value || $('signoff').value === old.sign) $('signoff').value = p.sign;
+    Object.assign(S, { who: id, paper: p.paper, ink: p.ink, font: p.font, stamp: p.stamp, env: p.env, seal: p.seal, stickers: p.stickers.slice() });
+    if (S.kind === 'card') { var o = D.OCCASIONS[S.occasion]; Object.assign(S, { paper: o.paper, stamp: o.stamp, stickers: o.stickers.slice() }); }
+    if (S.kind === 'postcard') Object.assign(S, { stamp: 'plane', stickers: ['plane', 'sun'] });
+  }
+
+  // ── Rendering ──
+  function pressed(on) { return ' aria-pressed="' + (on ? 'true' : 'false') + '"'; }
+  function renderPick() {
+    $('kinds').innerHTML = KINDS.map(function (x) {
+      return '<button type="button" class="kind" data-kind="' + x.id + '"' + pressed(S.kind === x.id) + '><span class="mini" style="' + x.mini + '"></span>' + x.label + '</button>';
+    }).join('');
+    $('who').innerHTML = Object.keys(WHO).map(function (id) {
+      var p = WHO[id], env = D.find(D.ENVS, p.env), seal = D.find(D.SEALS, p.seal);
+      return '<button type="button" class="env-tile" data-who="' + id + '"' + pressed(S.who === id) + '><span class="face" style="background: ' + env.color + '"><span class="flap"></span><span style="position: absolute; left: 50%; top: 58%; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; background: ' + seal.color + '"></span></span><span class="name">' + esc(p.label) + '</span></button>';
+    }).join('');
+    $('place-row').hidden = S.kind !== 'postcard';
+    $('occ-row').hidden = S.kind !== 'card';
+    $('occasions').innerHTML = Object.keys(D.OCCASIONS).map(function (id) {
+      return '<button type="button" class="chip" data-occ="' + id + '"' + pressed(S.occasion === id) + '>' + esc(D.OCCASIONS[id].name) + '</button>';
+    }).join('');
+    $('pick-title').textContent = S.kind === 'postcard' ? 'Who gets your postcard?' : S.kind === 'card' ? 'Who is the card for?' : "Who's it for?";
+    var paper = D.find(D.PAPERS, S.paper).name.toLowerCase(), stamp = D.find(D.STAMPS, S.stamp).name.toLowerCase(), font = D.find(D.FONTS, S.font).name.toLowerCase();
+    $('pick-hint').textContent = paper + ' paper, ' + stamp + ' stamp, ' + font + '. change anything.';
+  }
+
+  function ring(on) { return on ? '3px solid #C2412D' : '2px dashed rgba(62,42,30,.3)'; }
+  function renderDrawer() {
+    document.querySelectorAll('.tool').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-tab') === S.tab)); });
+    $('tool-paper').style.background = D.find(D.PAPERS, S.paper).bg;
+    var st = D.find(D.STAMPS, S.stamp);
+    $('tool-stamp').style.background = st.bg; $('tool-stamp').innerHTML = D.svg(st.id, st.fg, 26);
+    var h = '';
+    if (S.tab === 'paper') {
+      h = '<span class="tw" style="font-size: 13px">Paper</span><div class="opt-grid" style="grid-template-columns: repeat(3, minmax(0,1fr))">' + D.PAPERS.map(function (p) {
+        return '<button type="button" class="opt" data-set="paper" data-id="' + p.id + '" aria-label="' + p.name + '"' + pressed(S.paper === p.id) + ' style="height: 60px; background: ' + p.bg + '; border: ' + ring(S.paper === p.id) + '"></button>';
+      }).join('') + '</div>';
+    } else if (S.tab === 'stickers') {
+      h = '<span class="tw" style="font-size: 13px">Stickers · tap to add</span><div class="opt-grid" style="grid-template-columns: repeat(5, minmax(0,1fr))">' + Object.keys(D.STICKERS).map(function (id) {
+        var on = S.stickers.indexOf(id) >= 0;
+        return '<button type="button" class="opt" data-sticker="' + id + '" aria-label="' + D.STICKERS[id].name + '"' + pressed(on) + '>' + D.svg(id, D.STICKERS[id].color, 28) + '</button>';
+      }).join('') + '</div><span class="hint">' + S.stickers.length + ' on your letter · up to 6</span>';
+    } else if (S.tab === 'stamp') {
+      h = '<span class="tw" style="font-size: 13px">Stamp</span><div class="opt-grid" style="grid-template-columns: repeat(4, minmax(0,1fr))">' + D.STAMPS.map(function (s) {
+        return '<button type="button" class="opt" data-set="stamp" data-id="' + s.id + '" aria-label="' + s.name + ' stamp"' + pressed(S.stamp === s.id) + ' style="height: 64px; padding: 4px"><span style="display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; background: ' + s.bg + '">' + D.svg(s.id, s.fg, 24) + '</span></button>';
+      }).join('') + '</div>';
+    } else {
+      h = '<span class="tw" style="font-size: 13px">Handwriting</span><div style="display: flex; flex-direction: column; gap: 6px">' + D.FONTS.map(function (f) {
+        return '<button type="button" class="opt" data-set="font" data-id="' + f.id + '"' + pressed(S.font === f.id) + ' style="height: 46px; justify-content: flex-start; padding: 0 12px; font-family: ' + f.css.replace(/'/g, '&#39;') + '; font-size: ' + f.size + '; color: #3E2A1E; border: ' + ring(S.font === f.id) + '">' + esc(f.name) + '</button>';
+      }).join('') + '</div>' +
+      '<span class="tw" style="font-size: 13px">Ink</span><div style="display: flex; gap: 8px; flex-wrap: wrap">' + D.INKS.map(function (i) {
+        return '<button type="button" data-set="ink" data-id="' + i.id + '" aria-label="' + i.name + ' ink"' + pressed(S.ink === i.id) + ' style="width: 44px; height: 44px; border-radius: 50%; cursor: pointer; background: ' + i.color + '; border: 3px solid ' + (S.ink === i.id ? '#E8A93A' : '#FAF1DC') + '"></button>';
+      }).join('') + '</div>' +
+      '<span class="tw" style="font-size: 13px">Envelope</span><div style="display: flex; gap: 8px; flex-wrap: wrap">' + D.ENVS.map(function (e) {
+        return '<button type="button" data-set="env" data-id="' + e.id + '" aria-label="' + e.name + ' envelope"' + pressed(S.env === e.id) + ' style="width: 52px; height: 36px; border-radius: 4px; cursor: pointer; background: ' + e.color + '; border: ' + ring(S.env === e.id) + '"></button>';
+      }).join('') + '</div>' +
+      '<span class="tw" style="font-size: 13px">Wax seal</span><div style="display: flex; gap: 8px; flex-wrap: wrap">' + D.SEALS.map(function (e) {
+        return '<button type="button" data-set="seal" data-id="' + e.id + '" aria-label="' + e.name + ' seal"' + pressed(S.seal === e.id) + ' style="width: 44px; height: 44px; border-radius: 50%; cursor: pointer; background: ' + e.color + '; border: 3px solid ' + (S.seal === e.id ? '#3E2A1E' : '#FAF1DC') + '"></button>';
+      }).join('') + '</div>';
+    }
+    $('drawer').innerHTML = h;
+  }
+
+  function renderSheet() {
+    var d = design();
+    D.applyPaper($('sheet'), d);
+    $('sheet-head').innerHTML = D.headerHtml(S.kind, d, esc);
+    $('placed').innerHTML = D.stickersHtml(S.stickers);
+    $('body').placeholder = S.kind === 'postcard' ? 'The trams here are yellow and the custard tarts are warm…' : WHO[S.who].hint;
+  }
+  function grow() { var b = $('body'); b.style.height = 'auto'; b.style.height = Math.max(216, b.scrollHeight) + 'px'; }
+
+  function renderEnvelope() {
+    var e = D.find(D.ENVS, S.env), s = D.find(D.SEALS, S.seal), st = D.find(D.STAMPS, S.stamp);
+    $('env-face').style.background = e.color;
+    $('env-stamp').innerHTML = '<span style="display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; background: ' + st.bg + '">' + D.svg(st.id, st.fg, 26) + '</span>';
+    $('seal-done').style.background = s.color;
+    $('wax').style.background = s.color;
+    $('peek').style.background = D.find(D.PAPERS, S.paper).bg;
+    $('env-to').textContent = $('to').value.trim() || '…';
+    $('env-where').textContent = T.label(S.tz);
+  }
+
+  function renderSeal() {
+    $('speeds').innerHTML = SPEEDS.map(function (x) {
+      return '<button type="button" class="speed" data-pace="' + x.id + '"' + pressed(S.pace === x.id) + '><strong style="font-size: 17px">' + x.name + '</strong><span style="font-size: 14px">' + x.note + '</span></button>';
+    }).join('');
+    $('capsule-row').hidden = S.pace !== 'time_capsule';
+    $('capsule-toggle').textContent = S.pace === 'time_capsule' ? 'Time capsule chosen · pick a normal speed above to undo' : 'Or seal it as a time capsule for a date you pick';
+    $('open-on').min = T.addDaysIso(T.todayIn(S.tz), 1);
+    renderArrive();
+    renderEnvelope();
+  }
+  function arrival() {
+    if (S.pace === 'time_capsule') return $('open-on').value ? T.at8(T.parseIso($('open-on').value), S.tz) : null;
+    var days = { morning: 1, standard: 3, slow_boat: 14 }[S.pace];
+    return T.at8(T.addDays(T.todayIn(S.tz), days), S.tz);
+  }
+  function renderArrive() {
+    var a = arrival();
+    if (!a) { $('arrive').textContent = 'Pick the day your time capsule opens.'; return; }
+    var theirs = T.fmt(a, S.tz), mine = T.fmt(a, T.myTz());
+    $('arrive').textContent = 'Arrives ' + theirs + ' their time' + (S.tz === T.myTz() ? '' : ' · ' + T.fmtTime(a, T.myTz()) + ' ' + T.fmtDayIfDifferent(a, S.tz, T.myTz()) + 'yours');
+  }
+
+  function go(n) {
+    if (sending) return;
+    if (n === 3 && !$('body').value.trim()) { S.step = 2; show(); $('body').focus(); toast('Write a few words before sealing it.'); return; }
+    S.step = n; show(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function show() {
+    $('step-pick').hidden = S.step !== 1; $('step-write').hidden = S.step !== 2; $('step-seal').hidden = S.step !== 3;
+    [1, 2, 3].forEach(function (i) {
+      var li = $('st-' + i);
+      li.className = i === S.step ? 'on' : i < S.step ? 'done' : '';
+      li.textContent = (i < S.step ? '✓ ' : i + ' · ') + ['Pick', 'Write', 'Seal & send'][i - 1];
+      if (i === S.step) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+    });
+    if (S.step === 1) renderPick();
+    if (S.step === 2) { renderDrawer(); renderSheet(); grow(); }
+    if (S.step === 3) { if (!$('to').value && S.who === 'parent') $('to').value = 'Mom & Dad'; renderSeal(); }
+    save();
+  }
+
+  // ── Events ──
+  document.addEventListener('click', function (e) {
+    var b;
+    if ((b = e.target.closest('[data-go]'))) return go(Number(b.getAttribute('data-go')));
+    if ((b = e.target.closest('[data-kind]'))) { S.kind = b.getAttribute('data-kind'); applyWho(S.who); renderPick(); save(); return; }
+    if ((b = e.target.closest('[data-who]'))) { applyWho(b.getAttribute('data-who')); renderPick(); save(); return; }
+    if ((b = e.target.closest('[data-occ]'))) { S.occasion = b.getAttribute('data-occ'); applyWho(S.who); renderPick(); save(); return; }
+    if ((b = e.target.closest('[data-tab]'))) { S.tab = b.getAttribute('data-tab'); renderDrawer(); return; }
+    if ((b = e.target.closest('[data-set]'))) { S[b.getAttribute('data-set')] = b.getAttribute('data-id'); renderDrawer(); renderSheet(); save(); return; }
+    if ((b = e.target.closest('[data-sticker]'))) {
+      var id = b.getAttribute('data-sticker'), i = S.stickers.indexOf(id);
+      if (i >= 0) S.stickers.splice(i, 1); else { S.stickers.push(id); if (S.stickers.length > 6) S.stickers.shift(); }
+      renderDrawer(); renderSheet(); save(); return;
+    }
+    if ((b = e.target.closest('[data-pace]'))) { S.pace = b.getAttribute('data-pace'); renderSeal(); save(); return; }
+    if ((b = e.target.closest('[data-remove]'))) { files.splice(Number(b.getAttribute('data-remove')), 1); renderFiles(); return; }
+  });
+  $('capsule-toggle').addEventListener('click', function () {
+    S.pace = S.pace === 'time_capsule' ? 'standard' : 'time_capsule';
+    if (S.pace === 'time_capsule' && !$('open-on').value) $('open-on').value = T.addDaysIso(T.todayIn(S.tz), 30);
+    renderSeal(); save();
+  });
+  ['greeting', 'body', 'signoff', 'from', 'to', 'email', 'place'].forEach(function (id) {
+    $(id).addEventListener('input', function () { if (id === 'body') grow(); if (id === 'to') renderEnvelope(); save(); });
+  });
+  $('open-on').addEventListener('change', renderArrive);
+
+  // Time zones
+  T.fillSelect($('tz'), S.tz);
+  $('tz').addEventListener('change', function () { S.tz = $('tz').value; renderSeal(); save(); });
+
+  // Attachments
+  var MAX = 50 * 1024 * 1024;
+  document.querySelectorAll('input[type=file][data-kind]').forEach(function (inp) {
+    inp.addEventListener('change', function () {
+      Array.prototype.forEach.call(inp.files, function (f) {
+        if (f.size > MAX) { toast(f.name + ' is over 50 MB. Pick a smaller file.'); return; }
+        files.push({ file: f, kind: inp.getAttribute('data-kind') });
+      });
+      inp.value = ''; renderFiles();
+    });
+  });
+  function renderFiles() {
+    $('files').innerHTML = files.map(function (f, i) {
+      return '<li><span>' + esc(f.kind === 'photo' ? 'Photo' : f.kind === 'video' ? 'Video' : f.kind === 'song' ? 'Song' : 'Voice note') + ': ' + esc(f.file.name) + '</span><button type="button" data-remove="' + i + '" aria-label="Remove ' + esc(f.file.name) + '">×</button></li>';
+    }).join('');
+  }
+
+  // ── Seal & send ──
+  $('wax').addEventListener('click', send);
+  async function send() {
+    if (sending) return;
+    var err = $('seal-err'); err.hidden = true;
+    var to = $('to').value.trim(), from = $('from').value.trim(), body = $('body').value.trim(), email = $('email').value.trim();
+    var problem = !body ? 'Write your letter first.' : !from ? 'Add your name at the bottom of the letter (step 2).' : !to ? 'Add who it is for.' :
+      (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) ? 'That email address doesn’t look right.' :
+      (S.pace === 'time_capsule' && !$('open-on').value) ? 'Pick the day your time capsule opens.' : null;
+    if (problem) { err.textContent = problem; err.hidden = false; return; }
+
+    sending = true; $('wax').disabled = true;
+    function status(t) { $('status').textContent = t; }
+    try {
+      $('peek').style.top = '90px'; $('peek').style.transform = 'rotate(0)';
+      status('Getting your mailbox…');
+      var mb = await SP.ready();
+      SP.savedName(from);
+      status('Folding the letter…');
+      var ins = await SP.sb.from('letters').insert({
+        sender_mailbox: mb.id, sender_name: from, recipient_name: to, recipient_email: email || null,
+        kind: S.kind, design: design(), greeting: $('greeting').value.trim(), body: body, signoff: $('signoff').value.trim(), pace: S.pace
+      }).select('id').single();
+      if (ins.error) throw ins.error;
+      var id = ins.data.id;
+      for (var i = 0; i < files.length; i++) {
+        status('Tucking in ' + (i + 1) + ' of ' + files.length + '…');
+        var f = files[i].file, safe = f.name.replace(/[^A-Za-z0-9._-]+/g, '-').slice(-80);
+        var path = mb.id + '/' + id + '/' + Math.random().toString(36).slice(2, 8) + '-' + safe;
+        var up = await SP.sb.storage.from('letter-media').upload(path, f, { contentType: f.type || undefined });
+        if (up.error) throw up.error;
+        var at = await SP.sb.from('attachments').insert({ letter_id: id, kind: files[i].kind, path: path, file_name: f.name });
+        if (at.error) throw at.error;
+      }
+      status('Sealing…');
+      var r = await SP.sb.rpc('send_letter', { p_letter_id: id, p_tz: S.tz, p_open_on: S.pace === 'time_capsule' ? $('open-on').value : null });
+      if (r.error) throw r.error;
+      var row = r.data[0];
+      try { localStorage.removeItem(KEY); } catch (x) {}
+      done(row.link_token, new Date(row.arrives_at), to, from, email);
+    } catch (e2) {
+      $('peek').style.top = '0'; $('peek').style.transform = 'rotate(-2deg)';
+      err.textContent = 'We couldn’t send it: ' + (e2.message || e2); err.hidden = false;
+      sending = false; $('wax').disabled = false;
+    } finally { status(''); }
+  }
+
+  function done(token, when, to, from, email) {
+    $('wax').hidden = true; $('wax-hint').hidden = true;
+    $('peek').hidden = true;
+    $('seal-done').hidden = false;
+    $('postmark').hidden = false;
+    $('postmark').innerHTML = '<svg class="thunk" style="position: absolute; left: 18px; top: 16px" width="132" height="70" viewBox="0 0 132 70" aria-hidden="true"><circle cx="35" cy="35" r="29" fill="none" stroke="#2B5A8A" stroke-width="2.5" opacity=".7"></circle><text x="35" y="38" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#2B5A8A">' + esc(new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase()) + '</text><path d="M68 22q8-6 16 0t16 0t16 0t14 0M68 35q8-6 16 0t16 0t16 0t14 0M68 48q8-6 16 0t16 0t16 0t14 0" fill="none" stroke="#2B5A8A" stroke-width="2" opacity=".6"></path></svg>';
+    $('stamp-earned').textContent = '+1 stamp · in your album';
+    $('stamp-earned').hidden = false;
+    $('seal-form').hidden = true; $('sent').hidden = false;
+    var theirs = T.fmt(when, S.tz);
+    var what = S.kind === 'letter' ? 'letter' : S.kind;
+    $('sent-when').textContent = 'Your ' + what + ' to ' + to + ' arrives ' + theirs + ' their time' + (email ? ', and we’ll email ' + email + ' that minute.' : '.');
+    var link = new URL('open.html?l=' + token, location.href).href;
+    $('link').value = link;
+    var msg = from + ' sent you a ' + what + ' on Slowpost. It opens ' + theirs + ': ' + link;
+    $('sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+    $('sh-sms').href = 'sms:?&body=' + encodeURIComponent(msg);
+    $('sh-mail').href = 'mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent('A ' + what + ' is on its way') + '&body=' + encodeURIComponent(msg);
+  }
+  $('copy').addEventListener('click', function () {
+    var v = $('link').value;
+    function fallback() { $('link').select(); toast('Link selected. Press Ctrl+C or Cmd+C to copy.'); }
+    if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { toast('Link copied.'); }, fallback); else fallback();
+  });
+
+  $('dateline').textContent = new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+  show();
+})();
+</script>
+</body>
+</html>
