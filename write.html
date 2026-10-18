@@ -57,6 +57,12 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
 .wax:hover { transform: translateX(-50%) scale(1.04); }
 .wax:active { transform: translateX(-50%) translateY(4px); box-shadow: inset 0 0 0 8px rgba(255,255,255,.16), 0 2px 0 #6E2A1A; }
 .wax:disabled { cursor: progress; opacity: .85; }
+.wax { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.wax.holding { transform: translateX(-50%) scale(.96); }
+.ring { position: absolute; left: 50%; top: 136px; width: 140px; height: 140px; transform: translateX(-50%) rotate(-90deg); pointer-events: none; }
+.ring circle { fill: none; stroke-width: 9; }
+.ring .track { stroke: rgba(250,241,220,.75); }
+.ring .fill { stroke: #2F8C5B; stroke-linecap: round; }
 </style>
 </head>
 <body>
@@ -164,13 +170,15 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
               <div id="seal-done" class="thunk" hidden aria-hidden="true" style="position: absolute; left: 50%; top: 56%; width: 74px; height: 74px; margin: -37px 0 0 -37px; border-radius: 50%; box-shadow: inset 0 0 0 7px rgba(255,255,255,.16)"></div>
             </div>
           </div>
-          <button type="button" class="wax" id="wax">Press to<br>seal</button>
+          <svg class="ring" id="ring" viewBox="0 0 140 140" aria-hidden="true"><circle class="track" cx="70" cy="70" r="62"></circle><circle class="fill" id="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="389.6" stroke-dashoffset="389.6"></circle></svg>
+          <button type="button" class="wax" id="wax" aria-label="Hold to seal and send" aria-describedby="wax-hint">Hold to<br>seal</button>
         </div>
-        <span class="hand" id="wax-hint" style="font-size: 23px; color: var(--red)">press the wax. it folds, stamps and sends.</span>
+        <span class="hand" id="wax-hint" style="font-size: 23px; color: var(--red); text-align: center">press and hold the wax until the ring turns green.</span>
         <span id="stamp-earned" class="badge dark pop" hidden style="font-size: 13px; padding: 8px 12px"></span>
       </div>
 
       <form id="seal-form" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px" novalidate>
+        <div class="field"><label for="from2" class="label">From (your name)</label><input id="from2" class="input" type="text" maxlength="60" autocomplete="given-name" required><span class="hint">This is how you sign the letter.</span></div>
         <div class="field"><label for="to" class="label">Who is it for?</label><input id="to" class="input" type="text" maxlength="80" required></div>
         <div class="field">
           <label for="tz" class="label">Where do they live?</label>
@@ -183,7 +191,12 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
           <button type="button" class="link" id="capsule-toggle" style="align-self: flex-start">Or seal it as a time capsule for a date you pick</button>
           <div id="capsule-row" class="field" hidden style="max-width: 260px"><label for="open-on" class="label">Opens on</label><input id="open-on" class="input" type="date"></div>
         </fieldset>
-        <div class="field"><label for="email" class="label">Their email (optional)</label><input id="email" class="input" type="email" maxlength="200" placeholder="name@example.com"><span class="hint">We'll email them the link the minute it arrives. You'll also get a link to share yourself.</span></div>
+        <div class="field">
+          <label for="email" class="label">Their email</label>
+          <input id="email" class="input" type="email" maxlength="200" placeholder="name@example.com" required aria-describedby="email-hint">
+          <span class="hint" id="email-hint">We email them the minute it arrives. You'll also get a link to share.</span>
+          <label style="display: flex; gap: 10px; align-items: center; min-height: 44px; font-size: 15px; cursor: pointer"><input id="no-email" type="checkbox" style="width: 20px; height: 20px; accent-color: #C2412D">I don't have their email. I'll share the link myself.</label>
+        </div>
         <p class="arrive" id="arrive" aria-live="polite"></p>
         <p id="seal-err" class="msg err" hidden role="alert"></p>
         <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
@@ -251,6 +264,7 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
   $('body').value = saved ? saved.body || '' : '';
   $('signoff').value = saved ? saved.signoff || '' : WHO[S.who].sign;
   $('from').value = (saved && saved.from) || SP.savedName();
+  $('from2').value = $('from').value;
   $('to').value = params.get('to') || (saved && saved.to) || '';
   $('email').value = (saved && saved.email) || '';
   $('place').value = params.get('place') || (saved && saved.place) || '';
@@ -413,6 +427,15 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
     if (S.pace === 'time_capsule' && !$('open-on').value) $('open-on').value = T.addDaysIso(T.todayIn(S.tz), 30);
     renderSeal(); save();
   });
+  $('from2').addEventListener('input', function () { $('from').value = $('from2').value; save(); });
+  $('from').addEventListener('input', function () { $('from2').value = $('from').value; });
+  $('no-email').addEventListener('change', function () {
+    var off = $('no-email').checked;
+    $('email').disabled = off; $('email').required = !off;
+    if (off) $('email').value = '';
+    $('email-hint').textContent = off ? 'No email will be sent. You\u2019ll get a link to share by WhatsApp, text or anywhere.' : 'We email them the minute it arrives. You\u2019ll also get a link to share.';
+    save();
+  });
   ['greeting', 'body', 'signoff', 'from', 'to', 'email', 'place'].forEach(function (id) {
     $(id).addEventListener('input', function () { if (id === 'body') grow(); if (id === 'to') renderEnvelope(); save(); });
   });
@@ -440,15 +463,57 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
   }
 
   // ── Seal & send ──
-  $('wax').addEventListener('click', send);
+  // Hold-to-seal: press and hold the wax until the green ring closes.
+  var HOLD = 1200, CIRC = 389.6, holdTimer = null, holdStart = 0, raf = 0;
+  function check() {
+    var to = $('to').value.trim(), from = $('from2').value.trim(), body = $('body').value.trim(), email = $('email').value.trim();
+    if (!body) return ['Write your letter first.', null];
+    if (!from) return ['Add your name in the \u201cFrom\u201d box.', 'from2'];
+    if (!to) return ['Add who it\u2019s for.', 'to'];
+    if (!$('no-email').checked && !email) return ['Add their email, or tick \u201cI\u2019ll share the link myself\u201d.', 'email'];
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return ['That email address doesn\u2019t look right.', 'email'];
+    if (S.pace === 'time_capsule' && !$('open-on').value) return ['Pick the day your time capsule opens.', 'open-on'];
+    return null;
+  }
+  function setRing(p) { $('ring-fill').style.strokeDashoffset = String(CIRC * (1 - p)); }
+  function tickRing() { var p = Math.min(1, (performance.now() - holdStart) / HOLD); setRing(p); if (p < 1) raf = requestAnimationFrame(tickRing); }
+  function startHold(e) {
+    if (e) e.preventDefault();
+    if (sending || holdTimer) return;
+    var problem = check(), err = $('seal-err');
+    if (problem) { err.textContent = problem[0]; err.hidden = false; if (problem[1]) $(problem[1]).focus(); return; }
+    err.hidden = true;
+    holdStart = performance.now();
+    $('wax').classList.add('holding');
+    raf = requestAnimationFrame(tickRing);
+    holdTimer = setTimeout(function () {
+      holdTimer = null; cancelAnimationFrame(raf); setRing(1);
+      $('wax').classList.remove('holding');
+      if (navigator.vibrate) navigator.vibrate(40);
+      send();
+    }, HOLD);
+  }
+  function cancelHold() {
+    if (!holdTimer) return;
+    clearTimeout(holdTimer); holdTimer = null; cancelAnimationFrame(raf);
+    $('wax').classList.remove('holding');
+    setRing(0);
+    $('wax-hint').textContent = 'keep holding until the ring turns all the way green.';
+  }
+  var wax = $('wax');
+  wax.addEventListener('pointerdown', startHold);
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { wax.addEventListener(ev, cancelHold); });
+  wax.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  wax.addEventListener('keydown', function (e) { if (e.key !== ' ' && e.key !== 'Enter') return; e.preventDefault(); if (!e.repeat) startHold(); });
+  wax.addEventListener('keyup', function (e) { if (e.key === ' ' || e.key === 'Enter') cancelHold(); });
+
   async function send() {
     if (sending) return;
     var err = $('seal-err'); err.hidden = true;
-    var to = $('to').value.trim(), from = $('from').value.trim(), body = $('body').value.trim(), email = $('email').value.trim();
-    var problem = !body ? 'Write your letter first.' : !from ? 'Add your name at the bottom of the letter (step 2).' : !to ? 'Add who it is for.' :
-      (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) ? 'That email address doesn’t look right.' :
-      (S.pace === 'time_capsule' && !$('open-on').value) ? 'Pick the day your time capsule opens.' : null;
-    if (problem) { err.textContent = problem; err.hidden = false; return; }
+    var to = $('to').value.trim(), from = $('from2').value.trim(), body = $('body').value.trim(), email = $('no-email').checked ? '' : $('email').value.trim();
+    var problem = check();
+    if (problem) { err.textContent = problem[0]; err.hidden = false; setRing(0); return; }
+    $('from').value = from;
 
     sending = true; $('wax').disabled = true;
     function status(t) { $('status').textContent = t; }
@@ -481,13 +546,13 @@ textarea.ink { resize: none; overflow: hidden; min-height: 216px; border-bottom:
       done(row.link_token, new Date(row.arrives_at), to, from, email);
     } catch (e2) {
       $('peek').style.top = '0'; $('peek').style.transform = 'rotate(-2deg)';
-      err.textContent = 'We couldn’t send it: ' + (e2.message || e2); err.hidden = false;
+      err.textContent = 'We couldn’t send it: ' + (e2.message || e2); err.hidden = false; setRing(0);
       sending = false; $('wax').disabled = false;
     } finally { status(''); }
   }
 
   function done(token, when, to, from, email) {
-    $('wax').hidden = true; $('wax-hint').hidden = true;
+    $('wax').hidden = true; $('wax-hint').hidden = true; $('ring').style.display = 'none';
     $('peek').hidden = true;
     $('seal-done').hidden = false;
     $('postmark').hidden = false;
