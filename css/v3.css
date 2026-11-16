@@ -86,6 +86,11 @@ img { max-width: 100%; }
 /* Page wrapper */
 .wrap { max-width: 1180px; margin: 0 auto; padding: 36px 32px 64px; }
 @media (max-width: 600px) { .wrap { padding: 24px 16px 48px; } }
+.sponsor-card { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; max-width: 470px; margin-top: 10px; padding: 13px 18px; border: 2px solid var(--ink); border-left: 8px solid var(--mustard); border-radius: 8px; background: var(--card); box-shadow: 3px 3px 0 var(--ink); font-size: 14px; line-height: 1.35; }
+.sponsor-card strong { font-size: 17px; }
+.sponsor-label { margin-bottom: 3px; color: var(--red); font-size: 11px; }
+.sponsor-card a { margin-top: 5px; color: var(--blue); font-weight: 900; text-underline-offset: 3px; }
+.sponsor-card a:hover { color: var(--red); }
 
 /* Footer */
 .foot { margin-top: 24px; }
